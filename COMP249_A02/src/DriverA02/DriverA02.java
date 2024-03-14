@@ -1,10 +1,9 @@
 package DriverA02;
-
-import java.io.PrintWriter;
-import java.io.FileOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 
 public class DriverA02 {
@@ -15,38 +14,24 @@ public class DriverA02 {
         Scanner input = null;
         PrintWriter output = null;
         String line = null;
+        int year;
+        String title;
+        int duration;
         String genres;
-       
+        String rating;
+        double score;
+        String director;
+        String actor1;
+        String actor2;
+        String actor3;
 
         try {
-            input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/COMP249_A02/src/DriverA02/Movies1990.csv"));
-
+            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/Movies1990.csv"));
+            output = new PrintWriter(new FileOutputStream("musical.csv"));
             while (input.hasNextLine()) {
                 line = input.nextLine();
                 int count = 0;
                 int index = 0;
-
-                String[] parts = line.split(",");
-
-                try {
-                    output = new PrintWriter(new FileOutputStream("bad_movie_records.csv", true));
-                    int year = Integer.parseInt(parts[2]);
-                }
-                catch (NumberFormatException e) {
-                    if (parts[1].charAt(0) != '"' || parts[1].charAt(parts[1].length() - 1) != '"') {
-                        try {
-                            throw new MissingQuotesException("Missing quotes");
-                        }
-                        catch (MissingQuotesException ex) {
-                            output.println("Missing Quote");
-                        }
-                        finally {
-                            output.close();
-                        }
-                    }
-                }
-
-
                 for (int i = 0; i < line.length(); i++) {
                     if (line.charAt(i) == ',') {
                         count++;
@@ -58,28 +43,84 @@ public class DriverA02 {
                         genres = line.substring(index + 1, i);
                         switch (genres) {
                             case "Comedy":
-                            System.out.println("hello");
-                            output = new PrintWriter(new FileOutputStream("comedy.csv", true));
                             output.println(line);
                             break;
                         }
+                        break;
                     }
                 }
-                output.close();  
                 
+                /*switch (genres) {
+                    case "Unserwood":
+                    output = new PrintWriter(new FileOutputStream("musical.csv"));
+                    output.println(genres);
+                    break;
+
+                    case "Comedy":
+                    break;
+
+                    case "Animation":
+                    break;
+
+                    case "Adventure":
+                    break;
+
+                    case "Drama":
+                    break;
+
+                    case "Crime":
+                    break;
+
+                    case "Biography":
+                    break;
+
+                    case "Horror":
+                    break;
+
+                    case "Action":
+                    break;
+
+                    case "Documentary":
+                    break;
+
+                    case "Fantasy":
+                    break;
+
+                    case "Mystery":
+                    break;
+
+                    case "Sci-fi":
+                    break;
+
+                    case "Family":
+                    break;
+
+                    case "Western":
+                    break;
+
+                    case "Romance":
+                    break;
+
+                    case "Thriller":
+                    break;
+                }
             }
+            */    
         }
-        input.close();
-       
+        }
         catch (FileNotFoundException e) {
             System.out.println("File not found");
             System.exit(0);
         }
+        input.close();
+       output.close(); ; 
+
         
-    }
         
 
+}
 
+    
 
 
 
@@ -87,5 +128,4 @@ public class DriverA02 {
         do_part1();
     }
 
-    
 }
