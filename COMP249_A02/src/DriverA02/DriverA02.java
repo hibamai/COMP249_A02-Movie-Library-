@@ -1,4 +1,9 @@
 package DriverA02;
+import java.util.Scanner;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 
 public class DriverA02 {
@@ -21,7 +26,7 @@ public class DriverA02 {
         String actor3;
 
         try {
-            input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/COMP249_A02/src/DriverA02/Movies1990.csv"));
+            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/Movies1990.csv"));
             output = new PrintWriter(new FileOutputStream("musical.csv"));
             while (input.hasNextLine()) {
                 line = input.nextLine();
@@ -108,19 +113,19 @@ public class DriverA02 {
             System.exit(0);
         }
         input.close();
-       output.close();  
+       output.close(); ; 
 
         
         
-<<<<<<< HEAD
+
 }
-=======
-    }
+
+    
 
 
 
     public static void main(String[] args){
         do_part1();
     }
->>>>>>> b18ce95e63c157fc749e24b8bb5940304f8d0324
+
 }
