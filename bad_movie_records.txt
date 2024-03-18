@@ -1,0 +1,9 @@
+Error missing genre (semantic error): 
+1990,Kindergarten Cop,111,,PG-13,6,Ivan Reitman,Richard Tyson,Cathy Moriarty,Penelope Ann Miller,
+Found in Movie1990.csv, line 13
+Error excess fields (syntax error): 
+1990,Total Recall,113,,R,7.5,Paul Verhoeven,Ronny Cox,Rachel Ticotin,Marshall Bell,actor 4?
+Found in Movie1990.csv, line 16
+Error missing genre (semantic error): 
+1990,Total Recall,113,,R,7.5,Paul Verhoeven,Ronny Cox,Rachel Ticotin,Marshall Bell,actor 4?
+Found in Movie1990.csv, line 16
