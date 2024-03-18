@@ -235,6 +235,9 @@ public class DriverA02 {
                     }
                 }
 
+                String t = "Hello";
+
+
                 //missing duration
                 if (parts.length > 10 && presenceOfComa(line)) {
                     if (parts[3].equals("")) {
@@ -318,6 +321,8 @@ public class DriverA02 {
 
                 //missing title
 
+
+                //if no error is found, the line will be written to the corresponding file
                 if (!errorFound) {
                     if (parts.length > 10) { //won't be considered as excess field if there's a comma in the title, if it's not the case, the error would have been caught in the previous if statement
                         genres = parts[4];
