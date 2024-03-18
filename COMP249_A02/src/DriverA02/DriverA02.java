@@ -11,7 +11,7 @@ public class DriverA02 {
     
 
     public static void do_part1() {
-        //What's missing: catching bad movies AND crea
+        //What's missing: catching bad movies AND creating part2_manifest
         Scanner input = null;
         PrintWriter outputMusical = null;
         PrintWriter outputComedy = null;
@@ -46,8 +46,6 @@ public class DriverA02 {
             input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/Movies1990.csv"));
             int fileDone = 0; 
             outputMusical = new PrintWriter(new FileOutputStream("musical.csv"));
-            System.out.println(outputAction);
-        
             outputComedy = new PrintWriter(new FileOutputStream("comedy.csv"));
             outputAnimation = new PrintWriter(new FileOutputStream("animation.csv"));
             outputAdventure = new PrintWriter(new FileOutputStream("adventure.csv"));
