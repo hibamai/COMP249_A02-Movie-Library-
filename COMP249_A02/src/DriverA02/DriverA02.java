@@ -12,6 +12,32 @@ public class DriverA02 {
 
     public static void do_part1() {
         //What's missing: catching bad movies AND creating part2_manifest
+
+        //creating part2_manifest
+        PrintWriter outputTitles = null;
+        try{
+            outputTitles = new PrintWriter(new FileOutputStream("part2_manifest"));
+            outputTitles.println("musical.cvs");
+            outputTitles.println("comedy.cvs");
+            outputTitles.println("animation.cvs");
+            outputTitles.println("adventure.cvs");
+            outputTitles.println("drama.cvs");
+            outputTitles.println("crime.cvs");
+            outputTitles.println("biography.cvs");
+            outputTitles.println("horror.cvs");
+            outputTitles.println("action.cvs");
+            outputTitles.println("documentary.cvs");
+            outputTitles.println("fantasy.cvs");
+            outputTitles.println("mystery.cvs");
+            outputTitles.println(".cvs");
+            outputTitles.println("musical.cvs");
+            outputTitles.println("musical.cvs");
+            outputTitles.println("musical.cvs");
+        }
+        catch(FileNotFoundException fnfe0) {
+            System.out.println("File not found");
+        }
+
         Scanner input = null;
         PrintWriter outputMusical = null;
         PrintWriter outputComedy = null;
@@ -117,6 +143,7 @@ public class DriverA02 {
                             break;
                             case "Thriller":  outputThriller.println(line);
                             break;
+                            default: 
                                 }
                                 break;
                     }
