@@ -209,7 +209,7 @@ while (input.hasNextLine()){
                 boolean errorFound = false;
                 boolean missingDuration = false;
                 boolean missingGenres = false;
-                System.out.println(parts.length);
+                
                 
 
                 //missing quotes
@@ -676,6 +676,7 @@ while (input.hasNextLine()){
         WesternMovie.close();
         RomanceMovie.close();
         ThrillerMovie.close();
+        part2.close();
 
         }
         catch (FileNotFoundException e) {
@@ -684,6 +685,147 @@ while (input.hasNextLine()){
         }
         input.close();
         return "part2_manifest.txt";
+    }
+    public static String do_part2(String file){
+        Scanner input = null;
+        Scanner currentFile = null;
+        PrintWriter outputMusical =null;
+        PrintWriter outputComedy = null;
+        PrintWriter outputAnimation =null;
+        PrintWriter outputAdventure = null;
+        PrintWriter outputDrama=null;
+        PrintWriter outputCrime = null;
+        PrintWriter outputBiography =null;
+        PrintWriter outputHorror = null;
+        PrintWriter outputAction =null;
+        PrintWriter outputDocumentary = null;
+        PrintWriter outputFantasy =null;
+        PrintWriter outputMystery = null;
+        PrintWriter outputSciFi =null;
+        PrintWriter outputFamily = null;
+        PrintWriter outputWestern =null;
+        PrintWriter outputRomance = null;
+        PrintWriter outputThriller =null;
+
+
+        try{
+            input = new Scanner(new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/"+file));
+            currentFile = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/"+input.nextLine()));
+
+            outputMusical = new PrintWriter(new FileOutputStream("musical.ser"));
+            outputComedy = new PrintWriter(new FileOutputStream("comedy.ser"));
+            outputAnimation = new PrintWriter(new FileOutputStream("animation.ser"));
+            outputAdventure = new PrintWriter(new FileOutputStream("adventure.ser"));
+            outputDrama = new PrintWriter(new FileOutputStream("drama.ser"));
+            outputCrime = new PrintWriter(new FileOutputStream("crime.ser"));
+            outputBiography = new PrintWriter(new FileOutputStream("biography.ser"));
+            outputHorror = new PrintWriter(new FileOutputStream("horror.ser"));
+            outputAction = new PrintWriter(new FileOutputStream("action.ser"));
+            outputDocumentary = new PrintWriter(new FileOutputStream("documentary.ser"));
+            outputFantasy = new PrintWriter(new FileOutputStream("fantasy.ser"));
+            outputMystery = new PrintWriter(new FileOutputStream("mystery.ser"));
+            outputSciFi = new PrintWriter(new FileOutputStream("sci-fi.ser"));
+            outputFamily = new PrintWriter(new FileOutputStream("family.ser"));
+            outputWestern = new PrintWriter(new FileOutputStream("western.ser"));
+            outputRomance = new PrintWriter(new FileOutputStream("romance.ser"));
+            outputThriller = new PrintWriter(new FileOutputStream("thriller.ser"));
+
+            Movie currentMovie = new Movie();
+            Movie[] currentMovieArr = new Movie[200];
+            
+            
+
+            int fileDone = 0;
+
+            for (int i = 0; i<currentMovieArr.length; i++){
+                
+                if (currentFile.hasNextLine()){
+                    for (int j = 0; currentFile.hasNextLine(); j++){
+                        String line = currentFile.nextLine();
+                        String[] parts = line.split(",");
+                       
+                        if (parts.length == 10){
+                            currentMovie = new Movie(Integer.parseInt(parts[0]),parts[1], Integer.parseInt(parts[2]), parts[3], parts[4], Double.parseDouble(parts[5]), parts[6], parts[7], parts[8], parts[9]) ;
+                        }
+                        else{
+                            currentMovie = new Movie(Integer.parseInt(parts[0]),parts[1]+", "+parts[2], Integer.parseInt(parts[3]), parts[4], parts[5], Double.parseDouble(parts[6]), parts[7], parts[8], parts[9], parts[10]) ;
+                        }
+                        
+                        currentMovieArr[j] = currentMovie;
+                    }
+                        //placing the array created in its respective file
+                    switch(fileDone){
+                        case 0: outputMusical.println(currentMovieArr);
+                        break;
+                        case 1: outputComedy.println(currentMovieArr);
+                        break;
+                        case 2: outputAnimation.println(currentMovieArr);
+                        break;
+                        case 3: outputAdventure.println(currentMovieArr);
+                        break;
+                        case 4: outputDrama.println(currentMovieArr);
+                        break;
+                        case 5: outputCrime.println(currentMovieArr);
+                        break;
+                        case 6: outputBiography.println(currentMovieArr);
+                        break;
+                        case 7: outputHorror.println(currentMovieArr);
+                        break;
+                        case 8: outputAction.println(currentMovieArr);
+                        break;
+                        case 9: outputDocumentary.println(currentMovieArr);
+                        break;
+                        case 10: outputFantasy.println(currentMovieArr);
+                        break;
+                        case 11: outputMystery.println(currentMovieArr);
+                        break;
+                        case 12: outputSciFi.println(currentMovieArr);
+                        break;
+                        case 13: outputFamily.println(currentMovieArr);
+                        break;
+                        case 14: outputWestern.println(currentMovieArr);
+                        break;
+                        case 15: outputRomance.println(currentMovieArr);
+                        break;
+                        case 16: outputThriller.println(currentMovieArr);
+                        break; 
+                    }
+                }
+                //switching current file
+                else if (!currentFile.hasNextLine() && input.hasNextLine()){
+                    currentFile = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/"+input.nextLine()));
+                    fileDone++;
+                    i=0;
+                }
+
+            }
+            
+        }
+        catch(FileNotFoundException e){
+            System.out.println("File not Found");
+            System.exit(0);
+        }
+        input.close();
+        currentFile.close();
+        outputAction.close();
+        outputAdventure.close();
+        outputAnimation.close();
+        outputBiography.close();
+        outputComedy.close();
+        outputCrime.close();
+        outputDocumentary.close();
+        outputFamily.close();
+        outputDrama.close();
+        outputFantasy.close();
+        outputHorror.close();
+        outputMusical.close();
+        outputMystery.close();
+        outputRomance.close();
+        outputSciFi.close();
+        outputThriller.close();
+        outputWestern.close();
+
+        return "part3_manifest";
     }
 
     public static void main(String[] args){
@@ -694,7 +836,7 @@ while (input.hasNextLine()){
         // part 2's manifest file
         String part2_manifest = do_part1(part1_manifest);
         // part 3's manifest file
-
+        String part3_manifest = do_part2(part2_manifest);
     }
 
 }

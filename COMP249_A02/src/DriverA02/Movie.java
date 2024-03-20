@@ -5,13 +5,31 @@ public class Movie implements Serializable {
     private int year;
     private String title;
     private int duration;
-    private String genres;
+    private String genre;
     private String rating;
     private double score;
     private String director;
     private String actor1;
     private String actor2;
     private String actor3; 
+
+    //Constructors 
+    public Movie (int year, String title, int duration, String genre, String rating, double score, String director, String actor1, String actor2, String actor3){
+        this.year = year;
+        this.title = title;
+        this.duration = duration;
+        this.genre = genre;
+        this.rating = rating;
+        this.score = score;
+        this.director = director;
+        this.actor1 = actor1;
+        this.actor2 = actor2;
+        this.actor3 = actor3;
+
+    }
+    public Movie (){
+
+    }
 
     //getters and setters
     public int getYear() {
@@ -98,7 +116,7 @@ public class Movie implements Serializable {
 
     @Override
     public String toString() {
-        return "Year: " + year + ", Title: " + title + ", Duration: " + duration + ", Genres: " + genres + ", Rating: " + rating + ", Score: " + score 
+        return "Year: " + year + ", Title: " + title + ", Duration: " + duration + ", Genres: " + genre + ", Rating: " + rating + ", Score: " + score 
         + ", Director: " + director + ", Actor1: " + actor1 + ", Actor2: " + actor2 + ", Actor3: " + actor3;
     }
 
