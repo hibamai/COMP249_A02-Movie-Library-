@@ -1,9 +1,135 @@
-Error missing genre (semantic error): 
-1990,Kindergarten Cop,111,,PG-13,6,Ivan Reitman,Richard Tyson,Cathy Moriarty,Penelope Ann Miller,
-Found in Movie1990.csv, line 13
+Error invalid genre (semantic error): 
+1990,Predator 2,103,"Action",R,6.2,Stephen Hopkins,Adam Baldwin,Robert Davi,Kevin Peter Hall,
+Found in Movie1990.csv, line 4
+Error missing score (semantic error): 
+1990,Dick Tracy,105,Action,PG,"6.1",Warren Beatty,Charlie Korsmo,Warren Beatty,Seymour Cassel,
+Found in Movie1990.csv, line 14
 Error excess fields (syntax error): 
-1990,Total Recall,113,,R,7.5,Paul Verhoeven,Ronny Cox,Rachel Ticotin,Marshall Bell,actor 4?
+1990,Total Recall,113,Action,R,7.5,Paul Verhoeven,Ronny Cox,Rachel Ticotin,Marshall Bell,actor 4?
 Found in Movie1990.csv, line 16
+Error invalid year (semantic error): 
+2991,Hudson Hawk,100,Action,R,5.7,Michael Lehmann,Bruce Willis,James Coburn,Richard E. Grant
+Found in Movie1991.csv, line 11
+Error missing rating (semantic error): 
+1991,Bill & Ted's Bogus Journey,93,Adventure,PJ,6.2,Peter Hewitt,Keanu Reeves,George Carlin,Alex Winter
+Found in Movie1991.csv, line 17
+Error invalid duration (semantic error): 
+1991,Hook,333,Adventure,PG,6.7,Steven Spielberg,Robin Williams,Julia Roberts,Bob Hoskins
+Found in Movie1991.csv, line 27
+Error invalid year (semantic error): 
+l992,Unforgiven,131,Drama,R,8.3,Clint Eastwood,Clint Eastwood,Morgan Freeman,Frances Fisher
+Found in Movie1992.csv, line 22
+Error invalid genre (semantic error): 
+1992,Batman Returns,126,Aktion,PG-13,7,Tim Burton,Michael Gough,Vincent Schiavelli,Andrew Bryniarski
+Found in Movie1992.csv, line 28
+Error missing score (semantic error): 
+1992,Aladdin,90,Adventure,G,80,Ron Clements,Robin Williams,Frank Welker,Scott Weinger
+Found in Movie1992.csv, line 30
+Error invalid duration (semantic error): 
+1993,"Blood In, Blood Out",330,Crime,R,8,Taylor Hackford,Delroy Lindo,Jesse Borrego,Raymond Cruz
+Found in Movie1993.csv, line 8
+Error missing rating (semantic error): 
+1993,Dazed and Confused,102,Comedy,RRR,7.7,Richard Linklater,Milla Jovovich,Adam Goldberg,Cole Hauser
+Found in Movie1993.csv, line 9
+Error missing name(s) (semantic error): 
+1993,Hocus Pocus,96,Comedy,PG,6.7,,Vinessa Shaw,Omri Katz,Larry Bagby
+Found in Movie1993.csv, line 23
+Error missing name(s) (semantic error): 
+1994,There Goes My Baby,99,Comedy,R,6.4,Floyd Mutrux,Ricky Schroder,,Seymour Cassel
+Found in Movie1994.csv, line 2
+Error missing score (semantic error): 
+1994,Wyatt Earp,212,Adventure,PG-13,,Lawrence Kasdan,Dennis Quaid,Catherine O'Hara,Isabella Rossellini
+Found in Movie1994.csv, line 17
+Error missing score (semantic error): 
+1994,Wyatt Earp,212,Adventure,PG-13,,Lawrence Kasdan,Dennis Quaid,Catherine O'Hara,Isabella Rossellini
+Found in Movie1994.csv, line 17
+Error missing duration (semantic error): 
+1994,Richie Rich,,Comedy,PG,5.2,Donald Petrie,Macaulay Culkin,John Larroquette,Jonathan Hyde
+Found in Movie1994.csv, line 21
+Error invalid genre (semantic error): 
+1996,Bound,109,Krime,R,,Lana Wachowski,Christopher Meloni,Kevin Michael Richardson,Peter Spellos
+Found in Movie1996.csv, line 10
+Error missing score (semantic error): 
+1996,Bound,109,Krime,R,,Lana Wachowski,Christopher Meloni,Kevin Michael Richardson,Peter Spellos
+Found in Movie1996.csv, line 10
+Error missing score (semantic error): 
+1996,Bound,109,Krime,R,,Lana Wachowski,Christopher Meloni,Kevin Michael Richardson,Peter Spellos
+Found in Movie1996.csv, line 10
+Error invalid year (semantic error): 
+l996,Bogus,110,Comedy,,5.3,Norman Jewison,Haley Joel Osment,Nancy Travis,Andrea Martin
+Found in Movie1996.csv, line 12
+Error missing rating (semantic error): 
+l996,Bogus,110,Comedy,,5.3,Norman Jewison,Haley Joel Osment,Nancy Travis,Andrea Martin
+Found in Movie1996.csv, line 12
+Error missing rating (semantic error): 
+l996,Bogus,110,Comedy,,5.3,Norman Jewison,Haley Joel Osment,Nancy Travis,Andrea Martin
+Found in Movie1996.csv, line 12
+Error invalid year (semantic error): 
+-1996,The Fan,116,Action,R,,Tony Scott,Robert De Niro,Kurt Fuller,Ellen Barkin
+Found in Movie1996.csv, line 29
+Error missing score (semantic error): 
+-1996,The Fan,116,Action,R,,Tony Scott,Robert De Niro,Kurt Fuller,Ellen Barkin
+Found in Movie1996.csv, line 29
+Error missing score (semantic error): 
+-1996,The Fan,116,Action,R,,Tony Scott,Robert De Niro,Kurt Fuller,Ellen Barkin
+Found in Movie1996.csv, line 29
+Error invalid duration (semantic error): 
+1996,Striptease,1170,Comedy,R,4.3,Andrew Bergman,Demi Moore,Rumer Willis,Paul Guilfoyle
+Found in Movie1996.csv, line 46
+Error invalid year (semantic error): 
+2996,Broken Arrow,900,Action,R,60,John Woo,Delroy Lindo,Samantha Mathis,Bob Gunton
+Found in Movie1996.csv, line 68
+Error invalid duration (semantic error): 
+2996,Broken Arrow,900,Action,R,60,John Woo,Delroy Lindo,Samantha Mathis,Bob Gunton
+Found in Movie1996.csv, line 68
+Error missing score (semantic error): 
+2996,Broken Arrow,900,Action,R,60,John Woo,Delroy Lindo,Samantha Mathis,Bob Gunton
+Found in Movie1996.csv, line 68
+Error missing fields (syntax error): 
+1997,Chasing Amy,113,Comedy,R,7.3,Kevin Smith,Matt Damon,Ethan Suplee,
+Found in Movie1997.csv, line 28
+Error invalid genre (semantic error): 
+1999,Crazy in Alabama,111,Komedy,PG-13,6.3,Antonio Banderas,Meat Loaf,,Noah Emmerich
+Found in Movie1999.csv, line 14
+Error missing name(s) (semantic error): 
+1999,Crazy in Alabama,111,Komedy,PG-13,6.3,Antonio Banderas,Meat Loaf,,Noah Emmerich
+Found in Movie1999.csv, line 14
+Error invalid year (semantic error): 
+l999,A Dog of Flanders,,,PG,6.3,Kevin Brodie,Bruce McGill,Cheryl Ladd,Jack Warden
+Found in Movie1999.csv, line 17
+Error missing duration (semantic error): 
+l999,A Dog of Flanders,,,PG,6.3,Kevin Brodie,Bruce McGill,Cheryl Ladd,Jack Warden
+Found in Movie1999.csv, line 17
 Error missing genre (semantic error): 
-1990,Total Recall,113,,R,7.5,Paul Verhoeven,Ronny Cox,Rachel Ticotin,Marshall Bell,actor 4?
-Found in Movie1990.csv, line 16
+l999,A Dog of Flanders,,,PG,6.3,Kevin Brodie,Bruce McGill,Cheryl Ladd,Jack Warden
+Found in Movie1999.csv, line 17
+Error invalid year (semantic error): 
+2999,Foolish,384,Comedy,R,4.3,Dave Meyers,,Clifton Powell,Marla Gibbs
+Found in Movie1999.csv, line 31
+Error invalid duration (semantic error): 
+2999,Foolish,384,Comedy,R,4.3,Dave Meyers,,Clifton Powell,Marla Gibbs
+Found in Movie1999.csv, line 31
+Error missing name(s) (semantic error): 
+2999,Foolish,384,Comedy,R,4.3,Dave Meyers,,Clifton Powell,Marla Gibbs
+Found in Movie1999.csv, line 31
+Error invalid genre (semantic error): 
+1999,Snow Falling on Cedars,127,Druma,PG-13,6.8,Scott Hicks,Rick Yune,Reeve Carney,Daniel von Bargen
+Found in Movie1999.csv, line 53
+Error missing rating (semantic error): 
+1999,Random Hearts,133,Drama,RRR,5.1,Sydney Pollack,Harrison Ford,Kristin Scott Thomas,Bill Cobbs
+Found in Movie1999.csv, line 81
+Error invalid year (semantic error): 
+-1999,The Bone Collector,118,Crime,,6.7,Phillip Noyce,Denzel Washington,Angelina Jolie Pitt,Leland Orser
+Found in Movie1999.csv, line 104
+Error missing rating (semantic error): 
+-1999,The Bone Collector,118,Crime,,6.7,Phillip Noyce,Denzel Washington,Angelina Jolie Pitt,Leland Orser
+Found in Movie1999.csv, line 104
+Error missing rating (semantic error): 
+-1999,The Bone Collector,118,Crime,,6.7,Phillip Noyce,Denzel Washington,Angelina Jolie Pitt,Leland Orser
+Found in Movie1999.csv, line 104
+Error invalid genre (semantic error): 
+1999,The Thomas Crown Affair,113,Krime,R,6.8,John McTiernan,Mark Margolis,Faye Dunaway,Denis Leary
+Found in Movie1999.csv, line 107
+Error missing title (semantic error): 
+1999,,102,Adventure,PG,7.3,Dean Parisot,Alan Rickman,Enrico Colantoni,Robin Sachs
+Found in Movie1999.csv, line 108

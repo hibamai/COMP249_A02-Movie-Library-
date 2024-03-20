@@ -7,6 +7,27 @@ import java.io.FileOutputStream;
 
 
 public class DriverA02 {
+    //creating the file part1_manifest
+    public static void createFirstFile(){
+        PrintWriter firstFile=null;
+        try{
+            firstFile = new PrintWriter(new FileOutputStream("part1_manifest.txt"));
+            firstFile.println("Movies1990.csv");
+            firstFile.println("Movies1991.csv");
+            firstFile.println("Movies1992.csv");
+            firstFile.println("Movies1993.csv");
+            firstFile.println("Movies1994.csv");
+            firstFile.println("Movies1995.csv");
+            firstFile.println("Movies1996.csv");
+            firstFile.println("Movies1997.csv");
+            firstFile.println("Movies1998.csv");
+            firstFile.println("Movies1999.csv");
+        } catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }
+            firstFile.close();
+     
+    }
 
     //method to check if there are missing quotes
     public static boolean missingQuote(String line) {
@@ -55,7 +76,7 @@ public class DriverA02 {
         }
     }
 
-    //method to check if the year field is an integer
+    //method to check if the year field is an integer 
     public static boolean validYear(String[] array) {
         try {
             int year = Integer.parseInt(array[0]);
@@ -111,8 +132,9 @@ public class DriverA02 {
         }
     }
 
-    public static void do_part1() {
+    public static String do_part1(String file) {
         Scanner input = null;
+        Scanner selectFile = null;
         PrintWriter musicalMovie = null;
         PrintWriter comedyMovie = null;
         PrintWriter AnimationMovie = null;
@@ -131,11 +153,14 @@ public class DriverA02 {
         PrintWriter RomanceMovie = null;
         PrintWriter ThrillerMovie = null;
         PrintWriter badMovie = null;
+        PrintWriter part2 = null;
         String line = null;
         String genres;
+        int fileDone = 0;
      
         try {
-            input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/COMP249_A02/src/DriverA02/Movies1990.csv"));
+            selectFile = new Scanner(new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/"+file));
+            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
             badMovie = new PrintWriter(new FileOutputStream("bad_movie_records.txt"));
             musicalMovie = new PrintWriter(new FileOutputStream("musical.csv"));
             comedyMovie = new PrintWriter(new FileOutputStream("comedy.csv"));
@@ -154,13 +179,38 @@ public class DriverA02 {
             WesternMovie = new PrintWriter(new FileOutputStream("western.csv"));
             RomanceMovie = new PrintWriter(new FileOutputStream("romance.csv"));
             ThrillerMovie = new PrintWriter(new FileOutputStream("thriller.csv"));
+
+            part2 = new PrintWriter (new FileOutputStream("part2_manifest.txt"));
+            part2.println("musical.csv");
+            part2.println("comedy.csv");
+            part2.println("animation.csv");
+            part2.println("adventure.csv");
+            part2.println("drama.csv");
+            part2.println("crime.csv");
+            part2.println("biography.csv");
+            part2.println("horror.csv");
+            part2.println("action.csv");
+            part2.println("documentary.csv");
+            part2.println("fantasy.csv");
+            part2.println("mystery.csv");
+            part2.println("sci-fi.csv");
+            part2.println("family.csv");
+            part2.println("western.csv");
+            part2.println("romance.csv");
+            part2.println("thriller.csv");
+
+
             
-            for (int x = 0; x < 22; x++) { 
+            
+while (input.hasNextLine()){
+             for (int x=0;input.hasNextLine() ;x++){
                 line = input.nextLine();
                 String[] parts = line.split(",");
                 boolean errorFound = false;
                 boolean missingDuration = false;
                 boolean missingGenres = false;
+                System.out.println(parts.length);
+                
 
                 //missing quotes
                 if (missingQuote(line) == true) {
@@ -170,7 +220,10 @@ public class DriverA02 {
                     catch (MissingQuotesException e)    {
                         errorFound = true;
                         System.out.println(e.getMessage());
-                        badMovie.println("Eror missing quote (syntax error): \n" + line + "\nFound in Movie1990.csv, line " + (x+1));
+                        badMovie.println("Error missing quote (syntax error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                           
+                        
+                        
                     }
                 }
 
@@ -182,7 +235,7 @@ public class DriverA02 {
                     catch (MissingFieldsException e) {
                         errorFound = true;
                         System.out.println(e.getMessage());
-                        badMovie.println("Error missing fields (syntax error): \n" + line + "\nFound in Movie1990.csv, line " + (x+1));
+                        badMovie.println("Error missing fields (syntax error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
                     }
                 }
                 if (presenceOfComa(line)) {
@@ -193,7 +246,7 @@ public class DriverA02 {
                         catch (MissingFieldsException e) {
                             errorFound = true;
                             System.out.println(e.getMessage());
-                            badMovie.println("Error missing fields (syntax error): \n" + line + "\nFound in Movie1990.csv, line " + (x+1));
+                            badMovie.println("Error missing fields (syntax error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
                         }
                     }
                 }
@@ -206,37 +259,33 @@ public class DriverA02 {
                         catch (ExcessFieldsException e) {
                             errorFound = true;
                             System.out.println(e.getMessage());
-                            badMovie.println("Error excess fields (syntax error): \n" + line + "\nFound in Movie1990.csv, line " + (x+1));
+                            badMovie.println("Error excess fields (syntax error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
                         }    
                 }   
 
                 //missing year
-                if (line.charAt(0) == ',') {
+                if (parts[0].equals("")) {
                     try {
                         throw new BadYearException("Missing year");
                     }
                     catch (BadYearException e) {
                         errorFound = true;
                         System.out.println(e.getMessage());
-                        badMovie.println("Error missing year (semantic error): \n" + line + "\nFound in Movie1990.csv, line " + (x+1));
+                        badMovie.println("Error missing year (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
                     }
                 }
 
                 //invalid year
-                if ((!validYear(parts) || validYear(parts) && (getYear(parts) < 1990 || getYear(parts) > 1999)) && (line.charAt(0) != ',')){
+                if ((!validYear(parts) || (validYear(parts) && (getYear(parts) < 1990 || getYear(parts) > 1999)) && (line.charAt(0) != ','))){
                     try { 
                          throw new BadYearException("Invalid year");
                         }
                     catch (BadYearException e) {
                         errorFound = true;
                         System.out.println(e.getMessage());
-                        badMovie.println("Error invalid year (semactic error): \n" + line + "\nFound in Movie1990.csv, line " + (x+1));
+                        badMovie.println("Error invalid year (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
                     }
                 }
-
-                String t = "Hello";
-
-
                 //missing duration
                 if (parts.length > 10 && presenceOfComa(line)) {
                     if (parts[3].equals("")) {
@@ -247,7 +296,7 @@ public class DriverA02 {
                             errorFound = true;
                             missingDuration = true; //to be used as condition for invalid year error so that the line won't be checked for invalid duration if it's missing
                             System.out.println(e.getMessage());
-                            badMovie.println("Error missing duration (semantic error): \n" + line + "\nFound in Movie1990.csv, line " + (x+1));
+                            badMovie.println("Error missing duration (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
                         }
                     }
                 }
@@ -260,7 +309,7 @@ public class DriverA02 {
                             errorFound = true;
                             missingDuration = true; //to be used as condition for invalid year error so that the line won't be checked for invalid duration if it's missing
                             System.out.println(e.getMessage());
-                            badMovie.println("Error missing duration (semantic error): \n" + line + "\nFound in Movie1990.csv, line " + (x+1));
+                            badMovie.println("Error missing duration (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
                         }
                     }
                 }
@@ -273,7 +322,7 @@ public class DriverA02 {
                     catch (BadDurationException e) {
                         errorFound = true;
                         System.out.println(e.getMessage());
-                        badMovie.println("Error invalid duration (semantic error): \n" + line + "\nFound in Movie1990.csv, line " + (x+1));
+                        badMovie.println("Error invalid duration (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
                     }
                 }
 
@@ -281,45 +330,205 @@ public class DriverA02 {
                 if (parts.length > 10 && presenceOfComa(line)) {
                     if (parts[4].equals("")) {
                         try {
-                            throw new BadDurationException("Missing genre");
+                            throw new BadGenreException("Missing genre");
                         }
-                        catch (BadDurationException e) {
+                        catch (BadGenreException e) {
                             errorFound = true;
                             missingGenres = true; //to be used as condition for invalid genre error so that the line won't be checked for invalid genre if it's missing
                             System.out.println(e.getMessage());
-                            badMovie.println("Error missing genre (semantic error): \n" + line + "\nFound in Movie1990.csv, line " + (x+1));
+                            badMovie.println("Error missing genre (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
                         }
                     }
                 }
-                if (parts.length > 10 || parts.length <= 10) {
+                if (parts.length == 10) {
                     if (parts[3].equals("")) {
                         try {
-                            throw new BadDurationException("Missing genre");
+                            throw new BadGenreException("Missing genre");
                         }
-                        catch (BadDurationException e) {
+                        catch (BadGenreException e) {
                             errorFound = true;
                             missingGenres = true; //to be used as condition for invalid genre error so that the line won't be checked for invalid genre if it's missing
                             System.out.println(e.getMessage());
-                            badMovie.println("Error missing genre (semantic error): \n" + line + "\nFound in Movie1990.csv, line " + (x+1));
+                            badMovie.println("Error missing genre (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
                         }
                     }
                 }
 
                 //invalid genres
-                
-
+                 if(!missingGenres){
+                if (parts.length > 10 && presenceOfComa(line)) {
+                    if (!(parts[4].equals("Action")||parts[4].equals("Adventure")||parts[4].equals("Animation")||parts[4].equals("Biography")||parts[4].equals("Comedy")||parts[4].equals("Crime")||parts[4].equals("Documentary")||parts[4].equals("Drama")||parts[4].equals("Family")||parts[4].equals("Fantasy")||parts[4].equals("Horror")||parts[4].equals("Musical")||parts[4].equals("Mystery")||parts[4].equals("Romance")||parts[4].equals("Sci-fi")||parts[4].equals("Thriller")||parts[4].equals("Western"))) {
+                        try {
+                            throw new BadGenreException("Invalid genre");
+                        }
+                        catch (BadGenreException e) {
+                            errorFound = true;
+                            System.out.println(e.getMessage());
+                            badMovie.println("Error invalid genre (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                        }
+                    }
+                }
+                 if (parts.length == 10) {
+                    if (!(parts[3].equals("Action")||parts[3].equals("Adventure")||parts[3].equals("Animation")||parts[3].equals("Biography")||parts[3].equals("Comedy")||parts[3].equals("Crime")||parts[3].equals("Documentary")||parts[3].equals("Drama")||parts[3].equals("Family")||parts[3].equals("Fantasy")||parts[3].equals("Horror")||parts[3].equals("Musical")||parts[3].equals("Mystery")||parts[3].equals("Romance")||parts[3].equals("Sci-fi")||parts[3].equals("Thriller")||parts[3].equals("Western"))) {
+                        try {
+                            throw new BadGenreException("Invalid genre");
+                        }
+                        catch (BadGenreException e) {
+                            errorFound = true;
+                            System.out.println(e.getMessage());
+                            badMovie.println("Error invalid genre (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                        }
+                    }
+                }
+                }
                 //missing rating
-
+                if (parts.length > 10 && presenceOfComa(line)){
+                    if(parts[5].equals("")){
+                        try{
+                            throw new BadRatingException("Missing rating");
+                        }
+                        catch (BadRatingException e){
+                            errorFound = true;
+                            System.out.println(e.getMessage());
+                            badMovie.println("Error missing rating (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                        }
+                    }
+                }
+                if (parts.length==10){
+                    if(parts[4].equals("")){
+                        try{
+                            throw new BadRatingException("Missing rating");
+                        }
+                        catch (BadRatingException e){
+                            errorFound = true;
+                            System.out.println(e.getMessage());
+                            badMovie.println("Error missing rating (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                        }
+                    }
+                }
                 //invalid rating
-
+                if (parts.length > 10 && presenceOfComa(line)){
+                    if(!(parts[5].equals("PG")||parts[5].equals("Unrated")||parts[5].equals("G")||parts[5].equals("R")||parts[5].equals("PG-13")||parts[5].equals("NC-17"))){
+                        try{
+                            throw new BadRatingException("Invalid rating");
+                        }
+                        catch (BadRatingException e){
+                            errorFound = true;
+                            System.out.println(e.getMessage());
+                            badMovie.println("Error invalid rating (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                        }
+                    }
+                }
+                else if (parts.length==10){
+                    if(!(parts[4].equals("PG")||parts[4].equals("Unrated")||parts[4].equals("G")||parts[4].equals("R")||parts[4].equals("PG-13")||parts[4].equals("NC-17"))){
+                        try{
+                            throw new BadRatingException("Missing rating");
+                        }
+                        catch (BadRatingException e){
+                            errorFound = true;
+                            System.out.println(e.getMessage());
+                            badMovie.println("Error missing rating (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                        }
+                    }
+                }
                 //missing score
-
+                if (parts.length > 10 && presenceOfComa(line)){
+                    if(parts[6].equals("")){
+                        try{
+                            throw new BadScoreException("Missing score");
+                        }
+                        catch (BadScoreException e){
+                            errorFound = true;
+                            System.out.println(e.getMessage());
+                            badMovie.println("Error missing score (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                        }
+                    }
+                }
+                if (parts.length==10 && !presenceOfComa(line)){
+                    if(parts[5].equals("")){
+                        try{
+                            throw new BadScoreException("Missing score");
+                        }
+                        catch (BadScoreException e){
+                            errorFound = true;
+                            System.out.println(e.getMessage());
+                            badMovie.println("Error missing score (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                        }
+                    }
+                }
                 //invalid score
-
+                if (parts.length > 10 && presenceOfComa(line)){
+                    double score = -1;
+                    try{
+                        try{
+                        score = Double.parseDouble(parts[6]);
+                        }
+                        catch(NumberFormatException e){
+                            throw new BadScoreException("Invalid score");
+                        }
+                    if(score<0||score>10){
+                        throw new BadScoreException("Invalid score");
+                    }
+                    }catch (BadScoreException f){
+                        errorFound = true;
+                        System.out.println(f.getMessage());
+                        badMovie.println("Error missing score (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                    }
+                }
+                else if (parts.length==10){
+                    double score = -1;
+                    try{
+                        try{
+                        score = Double.parseDouble(parts[5]);
+                        }
+                        catch(NumberFormatException e){
+                            throw new BadScoreException("Invalid score");
+                        }
+                    if(score<0||score>10){
+                        throw new BadScoreException("Invalid score");
+                    }
+                    }catch (BadScoreException f){
+                        errorFound = true;
+                        System.out.println(f.getMessage());
+                        badMovie.println("Error missing score (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                    }
+                }
                 //missing names
-
+                if (parts.length > 10 && presenceOfComa(line)){
+                    if(parts[7].equals("")||parts[8].equals("")||parts[9].equals("")||parts[10].equals("")){
+                        try{
+                            throw new BadNameException("Missing names");
+                        }
+                        catch (BadNameException e){
+                            errorFound = true;
+                            System.out.println(e.getMessage());
+                            badMovie.println("Error missing name(s) (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                        }
+                    }
+                }
+                else if (parts.length==10){
+                    if(parts[6].equals("")||parts[7].equals("")||parts[8].equals("")||parts[9].equals("")){
+                        try{
+                            throw new BadNameException("Missing names");
+                        }
+                        catch (BadNameException e){
+                            errorFound = true;
+                            System.out.println(e.getMessage());
+                            badMovie.println("Error missing name(s) (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                        }
+                    }
+                }
                 //missing title
-
+                if (parts[1].equals("")){
+                    try{
+                        throw new BadTitleException("Missing Title");
+                    }
+                    catch(BadTitleException e){
+                        errorFound = true;
+                        System.out.println(e.getMessage());
+                        badMovie.println("Error missing title (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                    }
+                }
 
                 //if no error is found, the line will be written to the corresponding file
                 if (!errorFound) {
@@ -399,25 +608,91 @@ public class DriverA02 {
                         break;
                     }
                 }     
+        
+        // switching files
+        if (!input.hasNextLine() && fileDone==0){
+            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
+            fileDone ++;
+            x=0;
+        } 
+        else if (!input.hasNextLine() && fileDone==1){
+            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
+            fileDone ++;
+            x=0;
         }
+        else if (!input.hasNextLine() && fileDone==2){
+            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
+            fileDone ++;
+            x=0;
+        }
+        else if (!input.hasNextLine() && fileDone==3){
+            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
+            fileDone ++;
+            x=0;
+        }
+        else if (!input.hasNextLine() && fileDone==4){
+            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
+            fileDone ++;
+            x=0;
+        }
+        else if (!input.hasNextLine() && fileDone==5){
+            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
+            fileDone ++;
+            x=0;
+        }
+        else if (!input.hasNextLine() && fileDone==6){
+            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
+            fileDone ++;
+            x=0;
+        }
+        else if (!input.hasNextLine() && fileDone==7){
+            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
+            fileDone ++;
+            x=0;
+        }
+        else if (!input.hasNextLine() && fileDone==8){
+            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
+            fileDone ++;
+            x=0;
+        }
+    }
+    
+}
         badMovie.close();
         comedyMovie.close();
+        musicalMovie.close();
+        AnimationMovie.close();
+        AdventureMovie.close();
+        DramaMovie.close();
+        CrimeMovie.close();
+        BiographyMovie.close();
+        HorrorMovie.close();
+        ActionMovie.close();
+        DocumentaryMovie.close();
+        FantasyMovie.close();
+        MysteryMovie.close();
+        SciFiMovie.close();
+        FamilyMovie.close();
+        WesternMovie.close();
+        RomanceMovie.close();
+        ThrillerMovie.close();
+
         }
         catch (FileNotFoundException e) {
             System.out.println("File not found");
             System.exit(0);
         }
         input.close();
-
-}
+        return "part2_manifest.txt";
+    }
 
     public static void main(String[] args){
-        do_part1();
+        createFirstFile();
 
         // part 1's manifest file
-
-        // part 2's manifest file 
-        
+        String part1_manifest = "part1_manifest.txt";
+        // part 2's manifest file
+        String part2_manifest = do_part1(part1_manifest);
         // part 3's manifest file
 
     }
