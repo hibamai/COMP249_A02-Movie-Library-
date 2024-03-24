@@ -42,7 +42,7 @@ public class Movie implements Serializable {
         return duration;
     }   
     public String getGenres() {
-        return genres;
+        return genre;
     }
     public String getRating() {
         return rating;

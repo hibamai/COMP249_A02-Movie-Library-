@@ -159,8 +159,8 @@ public class DriverA02 {
         int fileDone = 0;
      
         try {
-            selectFile = new Scanner(new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/"+file));
-            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
+            selectFile = new Scanner(new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/"+file));
+            input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
             badMovie = new PrintWriter(new FileOutputStream("bad_movie_records.txt"));
             musicalMovie = new PrintWriter(new FileOutputStream("musical.csv"));
             comedyMovie = new PrintWriter(new FileOutputStream("comedy.csv"));
@@ -611,47 +611,47 @@ while (input.hasNextLine()){
         
         // switching files
         if (!input.hasNextLine() && fileDone==0){
-            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
+            input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
             fileDone ++;
             x=0;
         } 
         else if (!input.hasNextLine() && fileDone==1){
-            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
+            input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/COMP249_A02//src/DriverA02/"+selectFile.nextLine()));
             fileDone ++;
             x=0;
         }
         else if (!input.hasNextLine() && fileDone==2){
-            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
+            input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02//COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
             fileDone ++;
             x=0;
         }
         else if (!input.hasNextLine() && fileDone==3){
-            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
+            input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02//COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
             fileDone ++;
             x=0;
         }
         else if (!input.hasNextLine() && fileDone==4){
-            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
+            input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02//COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
             fileDone ++;
             x=0;
         }
         else if (!input.hasNextLine() && fileDone==5){
-            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
+            input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02//COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
             fileDone ++;
             x=0;
         }
         else if (!input.hasNextLine() && fileDone==6){
-            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
+            input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02//COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
             fileDone ++;
             x=0;
         }
         else if (!input.hasNextLine() && fileDone==7){
-            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
+            input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02//COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
             fileDone ++;
             x=0;
         }
         else if (!input.hasNextLine() && fileDone==8){
-            input = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
+            input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02//COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
             fileDone ++;
             x=0;
         }
@@ -709,8 +709,9 @@ while (input.hasNextLine()){
 
 
         try{
-            input = new Scanner(new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/"+file));
-            currentFile = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/"+input.nextLine()));
+            input = new Scanner(new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/"+file));
+            
+            currentFile = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/"+input.nextLine()));
 
             outputMusical = new PrintWriter(new FileOutputStream("musical.ser"));
             outputComedy = new PrintWriter(new FileOutputStream("comedy.ser"));
@@ -793,7 +794,7 @@ while (input.hasNextLine()){
                 }
                 //switching current file
                 else if (!currentFile.hasNextLine() && input.hasNextLine()){
-                    currentFile = new Scanner (new FileInputStream("/Users/lammai/Documents/GitHub/COMP249_A02/COMP249_A02/"+input.nextLine()));
+                    currentFile = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/"+input.nextLine()));
                     fileDone++;
                     i=0;
                 }
