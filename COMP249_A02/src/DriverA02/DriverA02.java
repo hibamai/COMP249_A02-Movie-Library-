@@ -706,6 +706,9 @@ while (input.hasNextLine()){
         PrintWriter outputWestern =null;
         PrintWriter outputRomance = null;
         PrintWriter outputThriller =null;
+        PrintWriter part3 = null;
+
+        
 
 
         try{
@@ -730,6 +733,25 @@ while (input.hasNextLine()){
             outputWestern = new PrintWriter(new FileOutputStream("western.ser"));
             outputRomance = new PrintWriter(new FileOutputStream("romance.ser"));
             outputThriller = new PrintWriter(new FileOutputStream("thriller.ser"));
+
+            part3 = new PrintWriter (new FileOutputStream("part3_manifest.txt"));
+            part3.println("musical.ser");
+            part3.println("comedy.ser");
+            part3.println("animation.ser");
+            part3.println("adventure.ser");
+            part3.println("drama.ser");
+            part3.println("crime.ser");
+            part3.println("biography.ser");
+            part3.println("horror.ser");
+            part3.println("action.ser");
+            part3.println("documentary.ser");
+            part3.println("fantasy.ser");
+            part3.println("mystery.ser");
+            part3.println("sci-fi.ser");
+            part3.println("family.ser");
+            part3.println("western.ser");
+            part3.println("romance.ser");
+            part3.println("thriller.ser");
 
             Movie currentMovie = new Movie();
             Movie[] currentMovieArr = new Movie[200];
@@ -825,8 +847,14 @@ while (input.hasNextLine()){
         outputSciFi.close();
         outputThriller.close();
         outputWestern.close();
+        part3.close();
+
+
 
         return "part3_manifest";
+    }
+    public void do_part3(String file){
+
     }
 
     public static void main(String[] args){
@@ -838,6 +866,7 @@ while (input.hasNextLine()){
         String part2_manifest = do_part1(part1_manifest);
         // part 3's manifest file
         String part3_manifest = do_part2(part2_manifest);
+        //do_part3(part3_manifest);
     }
 
 }
