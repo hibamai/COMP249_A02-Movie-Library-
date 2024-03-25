@@ -4,6 +4,9 @@ import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 
 public class DriverA02 {
@@ -29,6 +32,16 @@ public class DriverA02 {
      
     }
 
+    //method to check if there are quotes in the line
+    public static boolean presenceOfQuote(String line) {
+        for (int i = 0; i < line.length(); i++) {
+            if (line.charAt(i) == '"') {
+                return true;
+            }
+        }
+        return false;
+    }
+
     //method to check if there are missing quotes
     public static boolean missingQuote(String line) {
         int count = 0;
@@ -42,6 +55,26 @@ public class DriverA02 {
         }
         else {
             return true;
+        }
+    }
+
+    //method to check where the double quotes are
+    public static int indexOfQuote(String line, String[] array) {
+        int index = -1;
+        if (presenceOfQuote(line) == true && !missingQuote(line)) {
+            for (int i = 0; i < array.length; i++) {
+                if (array[i].contains("\"")) {
+                    index = i;
+                    break;
+                }
+                else {
+                    index = -1;
+                } 
+            }
+            return index;
+        }
+        else {
+            return index;
         }
     }
 
@@ -132,6 +165,56 @@ public class DriverA02 {
         }
     }
 
+    //method to check if the score field is a double
+    public static boolean validScore(String[] array, String line) {
+        if ((presenceOfComa(line) == true) && !array[6].equals("")) {
+            try {
+                double score = Double.parseDouble(array[6]);
+                return true;  
+            }
+            catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        
+        else if (indexOfQuote(line, array) == 5) {
+            String subString = array[5].substring(1, array[5].length()-1);
+            try {
+                double score = Double.parseDouble(subString);
+                return true;  
+            }
+            catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        else {
+            try {
+                double score = Double.parseDouble(array[5]);
+                return true;  
+            }
+            catch (NumberFormatException e) {
+                return false;
+            }
+        }
+    }
+
+    //method to get the score after successfully checking if it's a double
+    public static double getScore(String[] array, String line) {
+        if (validScore(array, line) == true && presenceOfComa(line) == true){
+            return Double.parseDouble(array[6]);
+        }
+        else if (validScore(array, line) == true && indexOfQuote(line, array) == 5) {
+            String subString = array[5].substring(1, array[5].length()-1);
+            return Double.parseDouble(subString);
+        }
+        else if (validScore(array, line) == true) {
+            return Double.parseDouble(array[5]);
+        }
+        else {
+            return 0;
+        }
+    }
+
     public static String do_part1(String file) {
         Scanner input = null;
         Scanner selectFile = null;
@@ -198,18 +281,16 @@ public class DriverA02 {
             part2.println("western.csv");
             part2.println("romance.csv");
             part2.println("thriller.csv");
-
-
-            
-            
-while (input.hasNextLine()){
-             for (int x=0;input.hasNextLine() ;x++){
+   
+        while (input.hasNextLine()){
+             for (int x = 0;input.hasNextLine() ; x++){
                 line = input.nextLine();
                 String[] parts = line.split(",");
                 boolean errorFound = false;
                 boolean missingDuration = false;
                 boolean missingGenres = false;
-                
+                boolean missingRating = false;
+                boolean missingScore = false;
                 
 
                 //missing quotes
@@ -221,9 +302,6 @@ while (input.hasNextLine()){
                         errorFound = true;
                         System.out.println(e.getMessage());
                         badMovie.println("Error missing quote (syntax error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
-                           
-                        
-                        
                     }
                 }
 
@@ -258,6 +336,7 @@ while (input.hasNextLine()){
                         }
                         catch (ExcessFieldsException e) {
                             errorFound = true;
+                            System.out.println(x);
                             System.out.println(e.getMessage());
                             badMovie.println("Error excess fields (syntax error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
                         }    
@@ -277,6 +356,7 @@ while (input.hasNextLine()){
 
                 //invalid year
                 if ((!validYear(parts) || (validYear(parts) && (getYear(parts) < 1990 || getYear(parts) > 1999)) && (line.charAt(0) != ','))){
+                    System.out.println(x);
                     try { 
                          throw new BadYearException("Invalid year");
                         }
@@ -355,32 +435,47 @@ while (input.hasNextLine()){
                 }
 
                 //invalid genres
-                 if(!missingGenres){
-                if (parts.length > 10 && presenceOfComa(line)) {
-                    if (!(parts[4].equals("Action")||parts[4].equals("Adventure")||parts[4].equals("Animation")||parts[4].equals("Biography")||parts[4].equals("Comedy")||parts[4].equals("Crime")||parts[4].equals("Documentary")||parts[4].equals("Drama")||parts[4].equals("Family")||parts[4].equals("Fantasy")||parts[4].equals("Horror")||parts[4].equals("Musical")||parts[4].equals("Mystery")||parts[4].equals("Romance")||parts[4].equals("Sci-fi")||parts[4].equals("Thriller")||parts[4].equals("Western"))) {
-                        try {
-                            throw new BadGenreException("Invalid genre");
+                if(!missingGenres){
+                    if (parts.length > 10 && presenceOfComa(line)) {
+                        if (!(parts[4].equals("Action")||parts[4].equals("Adventure")||parts[4].equals("Animation")||parts[4].equals("Biography")||parts[4].equals("Comedy")||parts[4].equals("Crime")||parts[4].equals("Documentary")||parts[4].equals("Drama")||parts[4].equals("Family")||parts[4].equals("Fantasy")||parts[4].equals("Horror")||parts[4].equals("Musical")||parts[4].equals("Mystery")||parts[4].equals("Romance")||parts[4].equals("Sci-fi")||parts[4].equals("Thriller")||parts[4].equals("Western"))) {
+                            try {
+                                throw new BadGenreException("Invalid genre");
+                            }
+                            catch (BadGenreException e) {
+                                errorFound = true;
+                                System.out.println(e.getMessage());
+                                badMovie.println("Error invalid genre (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                            }
                         }
-                        catch (BadGenreException e) {
-                            errorFound = true;
-                            System.out.println(e.getMessage());
-                            badMovie.println("Error invalid genre (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                    }
+                    else if (parts.length == 10) {
+                        if (indexOfQuote(line, parts) == 3) {
+                            String subString = parts[3].substring(1, parts[3].length()-1);
+                            if (!(subString.equals("Action") || subString.equals("Adventure") || subString.equals("Animation") || subString.equals("Biography") || subString.equals("Comedy") || subString.equals("Crime") || subString.equals("Documentary") || subString.equals("Drama") || subString.equals("Family") || subString.equals("Fantasy") || subString.equals("Horror") || subString.equals("Musical") || subString.equals("Mystery") || subString.equals("Romance") || subString.equals("Sci-fi") || subString.equals("Thriller") || subString.equals("Western"))) {
+                                try {
+                                    throw new BadGenreException("Invalid genre");
+                                }
+                                catch (BadGenreException e) {
+                                    errorFound = true;
+                                    System.out.println(e.getMessage());
+                                    badMovie.println("Error invalid genre (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                                }
+                            }
+                        }
+                        else if (!(parts[3].equals("Action")||parts[3].equals("Adventure")||parts[3].equals("Animation")||parts[3].equals("Biography")||parts[3].equals("Comedy")||parts[3].equals("Crime")||parts[3].equals("Documentary")||parts[3].equals("Drama")||parts[3].equals("Family")||parts[3].equals("Fantasy")||parts[3].equals("Horror")||parts[3].equals("Musical")||parts[3].equals("Mystery")||parts[3].equals("Romance")||parts[3].equals("Sci-fi")||parts[3].equals("Thriller")||parts[3].equals("Western"))) {
+                            try {
+                                throw new BadGenreException("Invalid genre");
+                            }
+                            catch (BadGenreException e) {
+                                errorFound = true;
+                                System.out.println(e.getMessage());
+                                badMovie.println("Error invalid genre (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                            }
                         }
                     }
                 }
-                 if (parts.length == 10) {
-                    if (!(parts[3].equals("Action")||parts[3].equals("Adventure")||parts[3].equals("Animation")||parts[3].equals("Biography")||parts[3].equals("Comedy")||parts[3].equals("Crime")||parts[3].equals("Documentary")||parts[3].equals("Drama")||parts[3].equals("Family")||parts[3].equals("Fantasy")||parts[3].equals("Horror")||parts[3].equals("Musical")||parts[3].equals("Mystery")||parts[3].equals("Romance")||parts[3].equals("Sci-fi")||parts[3].equals("Thriller")||parts[3].equals("Western"))) {
-                        try {
-                            throw new BadGenreException("Invalid genre");
-                        }
-                        catch (BadGenreException e) {
-                            errorFound = true;
-                            System.out.println(e.getMessage());
-                            badMovie.println("Error invalid genre (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
-                        }
-                    }
-                }
-                }
+                
+
                 //missing rating
                 if (parts.length > 10 && presenceOfComa(line)){
                     if(parts[5].equals("")){
@@ -389,48 +484,67 @@ while (input.hasNextLine()){
                         }
                         catch (BadRatingException e){
                             errorFound = true;
+                            missingRating = true;
                             System.out.println(e.getMessage());
                             badMovie.println("Error missing rating (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
                         }
                     }
                 }
-                if (parts.length==10){
+                if (parts.length == 10){
                     if(parts[4].equals("")){
                         try{
                             throw new BadRatingException("Missing rating");
                         }
                         catch (BadRatingException e){
                             errorFound = true;
+                            missingRating = true;
                             System.out.println(e.getMessage());
                             badMovie.println("Error missing rating (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
                         }
                     }
                 }
+
                 //invalid rating
-                if (parts.length > 10 && presenceOfComa(line)){
-                    if(!(parts[5].equals("PG")||parts[5].equals("Unrated")||parts[5].equals("G")||parts[5].equals("R")||parts[5].equals("PG-13")||parts[5].equals("NC-17"))){
-                        try{
-                            throw new BadRatingException("Invalid rating");
+                if (!missingRating) {
+                    if (parts.length > 10 && presenceOfComa(line)){
+                        if(!(parts[5].equals("PG")||parts[5].equals("Unrated")||parts[5].equals("G")||parts[5].equals("R")||parts[5].equals("PG-13")||parts[5].equals("NC-17"))){
+                            try{
+                                throw new BadRatingException("Invalid rating");
+                            }
+                            catch (BadRatingException e){
+                                errorFound = true;
+                                System.out.println(e.getMessage());
+                                badMovie.println("Error invalid rating (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                            }
                         }
-                        catch (BadRatingException e){
-                            errorFound = true;
-                            System.out.println(e.getMessage());
-                            badMovie.println("Error invalid rating (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                    }
+                    if (parts.length==10){
+                        if (indexOfQuote(line, parts) == 4) {
+                            String subString = parts[4].substring(1, parts[4].length()-1);
+                            if(!(subString.equals("PG")||subString.equals("Unrated")||subString.equals("G")||subString.equals("R")||subString.equals("PG-13")||subString.equals("NC-17"))){
+                                try{
+                                    throw new BadRatingException("Invalid rating");
+                                }
+                                catch (BadRatingException e){
+                                    errorFound = true;
+                                    System.out.println(e.getMessage());
+                                    badMovie.println("Error invalid rating (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                                }
+                            }
+                        }
+                        else if(!(parts[4].equals("PG")||parts[4].equals("Unrated")||parts[4].equals("G")||parts[4].equals("R")||parts[4].equals("PG-13")||parts[4].equals("NC-17"))){
+                            try{
+                                throw new BadRatingException("Invalid rating");
+                            }
+                            catch (BadRatingException e){
+                                errorFound = true;
+                                System.out.println(e.getMessage());
+                                badMovie.println("Error invalid rating (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                            }
                         }
                     }
                 }
-                else if (parts.length==10){
-                    if(!(parts[4].equals("PG")||parts[4].equals("Unrated")||parts[4].equals("G")||parts[4].equals("R")||parts[4].equals("PG-13")||parts[4].equals("NC-17"))){
-                        try{
-                            throw new BadRatingException("Missing rating");
-                        }
-                        catch (BadRatingException e){
-                            errorFound = true;
-                            System.out.println(e.getMessage());
-                            badMovie.println("Error missing rating (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
-                        }
-                    }
-                }
+
                 //missing score
                 if (parts.length > 10 && presenceOfComa(line)){
                     if(parts[6].equals("")){
@@ -439,6 +553,7 @@ while (input.hasNextLine()){
                         }
                         catch (BadScoreException e){
                             errorFound = true;
+                            missingScore = true;
                             System.out.println(e.getMessage());
                             badMovie.println("Error missing score (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
                         }
@@ -451,48 +566,25 @@ while (input.hasNextLine()){
                         }
                         catch (BadScoreException e){
                             errorFound = true;
+                            missingScore = true;
                             System.out.println(e.getMessage());
                             badMovie.println("Error missing score (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
                         }
                     }
                 }
+
                 //invalid score
-                if (parts.length > 10 && presenceOfComa(line)){
-                    double score = -1;
+                if ((!missingScore && !validScore(parts, line)) || (validScore(parts, line) && ((getScore(parts, line) < 0 || getScore(parts, line) > 10)))){
                     try{
-                        try{
-                        score = Double.parseDouble(parts[6]);
-                        }
-                        catch(NumberFormatException e){
-                            throw new BadScoreException("Invalid score");
-                        }
-                    if(score<0||score>10){
                         throw new BadScoreException("Invalid score");
                     }
-                    }catch (BadScoreException f){
+                    catch (BadScoreException e){
                         errorFound = true;
-                        System.out.println(f.getMessage());
-                        badMovie.println("Error missing score (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
+                        System.out.println(e.getMessage());
+                        badMovie.println("Error invalid score (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
                     }
                 }
-                else if (parts.length==10){
-                    double score = -1;
-                    try{
-                        try{
-                        score = Double.parseDouble(parts[5]);
-                        }
-                        catch(NumberFormatException e){
-                            throw new BadScoreException("Invalid score");
-                        }
-                    if(score<0||score>10){
-                        throw new BadScoreException("Invalid score");
-                    }
-                    }catch (BadScoreException f){
-                        errorFound = true;
-                        System.out.println(f.getMessage());
-                        badMovie.println("Error missing score (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
-                    }
-                }
+
                 //missing names
                 if (parts.length > 10 && presenceOfComa(line)){
                     if(parts[7].equals("")||parts[8].equals("")||parts[9].equals("")||parts[10].equals("")){
@@ -607,56 +699,46 @@ while (input.hasNextLine()){
                         ThrillerMovie.println(line);
                         break;
                     }
-                }     
+                }   
+            }  
         
         // switching files
-        if (!input.hasNextLine() && fileDone==0){
+        if (!input.hasNextLine() && fileDone==0){ //switching to file 1991
             input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
             fileDone ++;
-            x=0;
         } 
-        else if (!input.hasNextLine() && fileDone==1){
+        else if (!input.hasNextLine() && fileDone==1){ //switching to file 1992
             input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/COMP249_A02//src/DriverA02/"+selectFile.nextLine()));
             fileDone ++;
-            x=0;
         }
-        else if (!input.hasNextLine() && fileDone==2){
+        else if (!input.hasNextLine() && fileDone==2){ //switching to file 1993
             input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02//COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
             fileDone ++;
-            x=0;
         }
-        else if (!input.hasNextLine() && fileDone==3){
+        else if (!input.hasNextLine() && fileDone==3){ //switching to file 1994
             input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02//COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
             fileDone ++;
-            x=0;
         }
-        else if (!input.hasNextLine() && fileDone==4){
+        else if (!input.hasNextLine() && fileDone==4){ //switching to file 1995
             input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02//COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
             fileDone ++;
-            x=0;
         }
-        else if (!input.hasNextLine() && fileDone==5){
+        else if (!input.hasNextLine() && fileDone==5){ //switching to file 1996
             input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02//COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
             fileDone ++;
-            x=0;
         }
-        else if (!input.hasNextLine() && fileDone==6){
+        else if (!input.hasNextLine() && fileDone==6){ //switching to file 1997
             input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02//COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
             fileDone ++;
-            x=0;
         }
-        else if (!input.hasNextLine() && fileDone==7){
+        else if (!input.hasNextLine() && fileDone==7){ //switching to file 1998
             input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02//COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
             fileDone ++;
-            x=0;
         }
-        else if (!input.hasNextLine() && fileDone==8){
+        else if (!input.hasNextLine() && fileDone==8){ //switching to file 1999
             input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02//COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
             fileDone ++;
-            x=0;
         }
-    }
-    
 }
         badMovie.close();
         comedyMovie.close();
@@ -689,7 +771,10 @@ while (input.hasNextLine()){
     public static String do_part2(String file){
         Scanner input = null;
         Scanner currentFile = null;
-        PrintWriter outputMusical =null;
+
+        
+
+        /*PrintWriter outputMusical =null;
         PrintWriter outputComedy = null;
         PrintWriter outputAnimation =null;
         PrintWriter outputAdventure = null;
@@ -705,18 +790,42 @@ while (input.hasNextLine()){
         PrintWriter outputFamily = null;
         PrintWriter outputWestern =null;
         PrintWriter outputRomance = null;
-        PrintWriter outputThriller =null;
+        PrintWriter outputThriller =null;*/
         PrintWriter part3 = null;
 
+        Movie[] trialArr  = new Movie[1];
+        trialArr[0] = new Movie (2009, "The Trial", 1993, "Drama", "PG-13", 7.8, "Steven Spielberg", "Tom Hanks", "Leonardo DiCaprio", "Meryl Streep");
         
-
+        
 
         try{
             input = new Scanner(new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/"+file));
-            
-            currentFile = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/"+input.nextLine()));
+            String line1 = input.nextLine();
+            currentFile = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/"+line1));
 
-            outputMusical = new PrintWriter(new FileOutputStream("musical.ser"));
+            ObjectOutputStream trial = new ObjectOutputStream(new FileOutputStream("trial.ser"));
+            trial.writeObject(trialArr); 
+            trial.close();
+
+            ObjectOutputStream outputMusical = new ObjectOutputStream(new FileOutputStream("musical.ser"));
+            ObjectOutputStream outputComedy = new ObjectOutputStream(new FileOutputStream("comedy.ser"));
+            ObjectOutputStream outputAnimation = new ObjectOutputStream(new FileOutputStream("animation.ser"));
+            ObjectOutputStream outputAdventure = new ObjectOutputStream(new FileOutputStream("adventure.ser"));
+            ObjectOutputStream outputDrama = new ObjectOutputStream(new FileOutputStream("drama.ser"));
+            ObjectOutputStream outputCrime = new ObjectOutputStream(new FileOutputStream("crime.ser"));
+            ObjectOutputStream outputBiography = new ObjectOutputStream(new FileOutputStream("biography.ser"));
+            ObjectOutputStream outputHorror = new ObjectOutputStream(new FileOutputStream("horror.ser"));
+            ObjectOutputStream outputAction = new ObjectOutputStream(new FileOutputStream("action.ser"));
+            ObjectOutputStream outputDocumentary = new ObjectOutputStream(new FileOutputStream("documentary.ser"));
+            ObjectOutputStream outputFantasy = new ObjectOutputStream(new FileOutputStream("fantasy.ser"));
+            ObjectOutputStream outputMystery = new ObjectOutputStream(new FileOutputStream("mystery.ser"));
+            ObjectOutputStream outputSciFi = new ObjectOutputStream(new FileOutputStream("sci-fi.ser"));
+            ObjectOutputStream outputFamily = new ObjectOutputStream(new FileOutputStream("family.ser"));
+            ObjectOutputStream outputWestern = new ObjectOutputStream(new FileOutputStream("western.ser"));
+            ObjectOutputStream outputRomance = new ObjectOutputStream(new FileOutputStream("romance.ser"));
+            ObjectOutputStream outputThriller = new ObjectOutputStream(new FileOutputStream("thriller.ser"));
+
+            /*outputMusical = new PrintWriter(new FileOutputStream("musical.ser"));
             outputComedy = new PrintWriter(new FileOutputStream("comedy.ser"));
             outputAnimation = new PrintWriter(new FileOutputStream("animation.ser"));
             outputAdventure = new PrintWriter(new FileOutputStream("adventure.ser"));
@@ -732,7 +841,7 @@ while (input.hasNextLine()){
             outputFamily = new PrintWriter(new FileOutputStream("family.ser"));
             outputWestern = new PrintWriter(new FileOutputStream("western.ser"));
             outputRomance = new PrintWriter(new FileOutputStream("romance.ser"));
-            outputThriller = new PrintWriter(new FileOutputStream("thriller.ser"));
+            outputThriller = new PrintWriter(new FileOutputStream("thriller.ser"));*/
 
             part3 = new PrintWriter (new FileOutputStream("part3_manifest.txt"));
             part3.println("musical.ser");
@@ -752,75 +861,96 @@ while (input.hasNextLine()){
             part3.println("western.ser");
             part3.println("romance.ser");
             part3.println("thriller.ser");
-
-            Movie currentMovie = new Movie();
-            Movie[] currentMovieArr = new Movie[200];
-            
-            
-
+        
             int fileDone = 0;
-
-            for (int i = 0; i<currentMovieArr.length; i++){
+            while (input.hasNextLine()){  
+                Movie currentMovie = new Movie();
+                Movie[] currentMovieArr = new Movie[200];
                 
-                if (currentFile.hasNextLine()){
-                    for (int j = 0; currentFile.hasNextLine(); j++){
-                        String line = currentFile.nextLine();
-                        String[] parts = line.split(",");
-                       
-                        if (parts.length == 10){
-                            currentMovie = new Movie(Integer.parseInt(parts[0]),parts[1], Integer.parseInt(parts[2]), parts[3], parts[4], Double.parseDouble(parts[5]), parts[6], parts[7], parts[8], parts[9]) ;
-                        }
-                        else{
-                            currentMovie = new Movie(Integer.parseInt(parts[0]),parts[1]+", "+parts[2], Integer.parseInt(parts[3]), parts[4], parts[5], Double.parseDouble(parts[6]), parts[7], parts[8], parts[9], parts[10]) ;
-                        }
-                        
-                        currentMovieArr[j] = currentMovie;
-                    }
-                        //placing the array created in its respective file
-                    switch(fileDone){
-                        case 0: outputMusical.println(currentMovieArr);
-                        break;
-                        case 1: outputComedy.println(currentMovieArr);
-                        break;
-                        case 2: outputAnimation.println(currentMovieArr);
-                        break;
-                        case 3: outputAdventure.println(currentMovieArr);
-                        break;
-                        case 4: outputDrama.println(currentMovieArr);
-                        break;
-                        case 5: outputCrime.println(currentMovieArr);
-                        break;
-                        case 6: outputBiography.println(currentMovieArr);
-                        break;
-                        case 7: outputHorror.println(currentMovieArr);
-                        break;
-                        case 8: outputAction.println(currentMovieArr);
-                        break;
-                        case 9: outputDocumentary.println(currentMovieArr);
-                        break;
-                        case 10: outputFantasy.println(currentMovieArr);
-                        break;
-                        case 11: outputMystery.println(currentMovieArr);
-                        break;
-                        case 12: outputSciFi.println(currentMovieArr);
-                        break;
-                        case 13: outputFamily.println(currentMovieArr);
-                        break;
-                        case 14: outputWestern.println(currentMovieArr);
-                        break;
-                        case 15: outputRomance.println(currentMovieArr);
-                        break;
-                        case 16: outputThriller.println(currentMovieArr);
-                        break; 
-                    }
-                }
-                //switching current file
-                else if (!currentFile.hasNextLine() && input.hasNextLine()){
-                    currentFile = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/"+input.nextLine()));
-                    fileDone++;
-                    i=0;
-                }
+                //total number of movies = 607
+                //total number of valid movies = 579
 
+                for (int i = 0; i<currentMovieArr.length && currentFile.hasNextLine(); i++){  
+                    if (currentFile.hasNextLine()){
+                        for (int j = 0; currentFile.hasNextLine(); j++){
+                            String line = currentFile.nextLine();
+                            String[] parts = line.split(",");
+                            if (parts.length == 10 && indexOfQuote(line, parts) == 5) {
+                                String subString = parts[5].substring(1, parts[5].length()-1);
+                                currentMovie = new Movie(Integer.parseInt(parts[0]),parts[1], Integer.parseInt(parts[2]), parts[3], parts[4], Double.parseDouble(subString), parts[6], parts[7], parts[8], parts[9]) ;
+                            }
+
+                            else if (parts.length == 10){
+                                currentMovie = new Movie(Integer.parseInt(parts[0]),parts[1], Integer.parseInt(parts[2]), parts[3], parts[4], Double.parseDouble(parts[5]), parts[6], parts[7], parts[8], parts[9]) ;
+                            }
+                            else{
+                                currentMovie = new Movie(Integer.parseInt(parts[0]),parts[1]+", "+parts[2], Integer.parseInt(parts[3]), parts[4], parts[5], Double.parseDouble(parts[6]), parts[7], parts[8], parts[9], parts[10]) ;
+                            }
+                            
+                            currentMovieArr[j] = currentMovie;
+                        }
+
+                        //placing the array created in its respective file
+                        switch(fileDone){
+                            case 0: outputMusical.writeObject(currentMovieArr);
+                            outputMusical.close();
+                            break;
+                            case 1: outputComedy.writeObject(currentMovieArr);
+                            outputComedy.close();
+                            break;
+                            case 2: outputAnimation.writeObject(currentMovieArr);
+                            outputAnimation.close();
+                            break;
+                            case 3: outputAdventure.writeObject(currentMovieArr);
+                            outputAdventure.close();
+                            break;
+                            case 4: outputDrama.writeObject(currentMovieArr);
+                            outputDrama.close();
+                            break;
+                            case 5: outputCrime.writeObject(currentMovieArr);
+                            outputCrime.close();
+                            break;
+                            case 6: outputBiography.writeObject(currentMovieArr);
+                            outputBiography.close();
+                            break;
+                            case 7: outputHorror.writeObject(currentMovieArr);
+                            outputHorror.close();
+                            break;
+                            case 8: outputAction.writeObject(currentMovieArr);
+                            outputAction.close();
+                            break;
+                            case 9: outputDocumentary.writeObject(currentMovieArr);
+                            outputDocumentary.close();
+                            break;
+                            case 10: outputFantasy.writeObject(currentMovieArr);
+                            outputFantasy.close();
+                            break;
+                            case 11: outputMystery.writeObject(currentMovieArr);
+                            outputMystery.close();
+                            break;
+                            case 12: outputSciFi.writeObject(currentMovieArr);
+                            outputSciFi.close();
+                            break;
+                            case 13: outputFamily.writeObject(currentMovieArr);
+                            outputFamily.close();
+                            break;
+                            case 14: outputWestern.writeObject(currentMovieArr);
+                            outputWestern.close();
+                            break;
+                            case 15: outputRomance.writeObject(currentMovieArr);
+                            outputRomance.close();
+                            break;
+                            case 16: outputThriller.writeObject(currentMovieArr);
+                            outputThriller.close();
+                            break; 
+                        }
+                    }
+                }
+                if (!currentFile.hasNextLine() && input.hasNextLine()){
+                    String line = input.nextLine();
+                    currentFile = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/"+line));
+                    fileDone++;
+                }
             }
             
         }
@@ -828,33 +958,52 @@ while (input.hasNextLine()){
             System.out.println("File not Found");
             System.exit(0);
         }
+        catch(IOException e){
+            System.out.println("IO Exception");
+            System.exit(0);
+        }
+
         input.close();
         currentFile.close();
-        outputAction.close();
-        outputAdventure.close();
-        outputAnimation.close();
-        outputBiography.close();
-        outputComedy.close();
-        outputCrime.close();
-        outputDocumentary.close();
-        outputFamily.close();
-        outputDrama.close();
-        outputFantasy.close();
-        outputHorror.close();
-        outputMusical.close();
-        outputMystery.close();
-        outputRomance.close();
-        outputSciFi.close();
-        outputThriller.close();
-        outputWestern.close();
         part3.close();
 
-
-
-        return "part3_manifest";
+        return "part3_manifest.txt";
     }
-    public void do_part3(String file){
 
+    
+
+    public static void do_part3(String file){
+        //Deserialization
+        try {
+            Scanner input = new Scanner(new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/"+file)); //read from manifest file 3
+            String line = input.nextLine(); //read the first line
+            Scanner currentFile = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/"+line));
+
+
+            while (input.hasNextLine()) {
+                try {
+                    FileInputStream fileIn = new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/" + currentFile); //read from the file in the manifest file
+                    ObjectInputStream in = new ObjectInputStream(fileIn); //create an object input stream
+                    Movie[] movieArr = (Movie[]) in.readObject(); //cast the object to a movie array
+                    in.close();
+                    fileIn.close();
+                }
+                catch(IOException e){
+                    System.out.println("This file " + line + " has no data");
+                }
+                catch(ClassNotFoundException e){
+                    System.out.println("Class not found");
+                }
+                if (input.hasNextLine()){
+                    line = input.nextLine();
+                    currentFile = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/"+line));
+                }
+            }
+        }
+        catch(FileNotFoundException e){
+            System.out.println("File not found");
+            System.exit(0);
+        }
     }
 
     public static void main(String[] args){
@@ -866,7 +1015,9 @@ while (input.hasNextLine()){
         String part2_manifest = do_part1(part1_manifest);
         // part 3's manifest file
         String part3_manifest = do_part2(part2_manifest);
-        //do_part3(part3_manifest);
+        
+        do_part3(part3_manifest);
+
     }
 
 }

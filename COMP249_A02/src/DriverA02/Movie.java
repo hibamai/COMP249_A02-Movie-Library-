@@ -73,7 +73,7 @@ public class Movie implements Serializable {
         this.duration = duration;
     }   
     public void setGenres(String genres) {
-        this.genres = genres;
+        this.genre = genres;
     }
     public void setRating(String rating) {
         this.rating = rating;
@@ -104,7 +104,7 @@ public class Movie implements Serializable {
         }
         else {
             Movie movie = (Movie) obj;
-            if (this.year == movie.year && this.title.equals(movie.title) && this.duration == movie.duration && this.genres.equals(movie.genres) && this.rating.equals(movie.rating) 
+            if (this.year == movie.year && this.title.equals(movie.title) && this.duration == movie.duration && this.genre.equals(movie.genre) && this.rating.equals(movie.rating) 
                 && this.score == movie.score && this.director.equals(movie.director) && this.actor1.equals(movie.actor1) && this.actor2.equals(movie.actor2) && this.actor3.equals(movie.actor3)) {
                 return true;
             }
