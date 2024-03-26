@@ -1019,33 +1019,27 @@ public class DriverA02 {
     }
 
 
-    public static void menuCreation(Movie[][] movie) {
-        
-        System.out.println("----------------------------");
-        System.out.println("       Genre Sub-Menu       ");
-        System.out.println("1. musical             ("+ movie[0].length+" movies)");
-        System.out.println("2. comedy              ("+ movie[1].length+" movies)");
-        System.out.println("3. animation           ("+ movie[2].length+" movies)");
-        System.out.println("4. adventure           ("+ movie[3].length+" movies)");
-        System.out.println("5. drama               ("+ movie[4].length+" movies)");
-        System.out.println("6. crime               ("+ movie[5].length+" movies)");
-        System.out.println("7. biography           ("+ movie[6].length+" movies)");
-        System.out.println("8. horror              ("+ movie[7].length+" movies)");
-        System.out.println("9. action              ("+ movie[8].length+" movies)");
-        System.out.println("10. documentary        ("+ movie[9].length+" movies)");
-        System.out.println("11. fantasy            ("+ movie[10].length+" movies)");
-        System.out.println("12. mystery            ("+ movie[11].length+" movies)");
-        System.out.println("13. sci-fi             ("+ movie[12].length+" movies)");
-        System.out.println("14. family             ("+ movie[13].length+" movies)");
-        System.out.println("15. western            ("+ movie[14].length+" movies)");
-        System.out.println("16. romance            ("+ movie[15].length+" movies)");
-        System.out.println("17. thriller           ("+ movie[16].length+" movies)");
-        System.out.println("18. Exit");
+    public static void menuCreation(Movie[][] movieArr) {
+    
+        System.out.println("--------------------------------");
+        System.out.println("           Main menu           ");
+        System.out.println("--------------------------------");
+        System.out.println("s   Select a movie array to navigate");
+        System.out.println("n   Navigate musical movies (0 records)");
+        System.out.println("x   Exit");
 
-        System.out.println("----------------------------");
-        System.out.print("Enter your choice: ");
+        Scanner input = new Scanner(System.in);
+        String choice = input.next();
         
-
+        switch (choice) {
+            case "s":
+            break;
+            case "n":
+                System.out.println("The musical movies don't have any records");
+            break;
+            case "x":
+            break;
+        }
     }
 
 
@@ -1061,7 +1055,7 @@ public class DriverA02 {
         String part3_manifest = do_part2(part2_manifest);
         
         do_part3(part3_manifest);
-
+        menuCreation();
     }
 
 }
