@@ -1035,6 +1035,7 @@ public class DriverA02 {
             case "s":
             System.out.println("----------------------------");
             System.out.println("       Genre Sub-Menu       ");
+            System.out.println("----------------------------");
             System.out.println("1. musical             ("+ movie[0].length+" movies)");
             System.out.println("2. comedy              ("+ movie[1].length+" movies)");
             System.out.println("3. animation           ("+ movie[2].length+" movies)");
@@ -1056,6 +1057,7 @@ public class DriverA02 {
     
             System.out.println("----------------------------");
             System.out.print("Enter your choice: ");
+
             
             break;
             case "n":
