@@ -978,44 +978,46 @@ public class DriverA02 {
         Scanner currentFile = null;
         FileInputStream fileIn = null;
         ObjectInputStream in = null;
+        String line = null;
         
         try {
             input = new Scanner(new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/"+file)); //read from manifest file 3
-            String line = input.nextLine(); //read the first line
+            line = input.nextLine(); //read the first line
             currentFile = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/"+line));
-            Movie[][] all_movies = new Movie[17][200]; //create a 2D array to store all the movies
 
-            while (input.hasNextLine()) {
-                try {
-                    fileIn = new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/" + currentFile); //read from the file in the manifest file
-                    in = new ObjectInputStream(fileIn); //create an object input stream
+            Movie[][] all_movies = new Movie[17][200]; //create a 2D array to store all the movies
+            fileIn = new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/" + currentFile); //read from the file in the manifest file
+            System.out.println("HELLO");
+            in = new ObjectInputStream(fileIn); //create an object input stream
+            while (input.hasNextLine() && in.available() > 0 ) {    
                     Movie[] movieArr = (Movie[]) in.readObject(); //cast the object to a movie array
                     for (int i = 0; i < all_movies.length; i++) {
                         all_movies[i] = movieArr; //store the movie array in the 2D array
                     }
-                    in.close();
-                    fileIn.close();
-                }
-                catch(IOException e){
-                    System.out.println("This file " + line + " has no data");
-                }
-                catch(ClassNotFoundException e){
-                    System.out.println("Class not found");
-                }
+                    
                 if (input.hasNextLine() && !currentFile.hasNextLine()){
                     line = input.nextLine();
                     currentFile = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/"+line));
                 }
             }
-            for (int i = 0; i < 17; i++) {
+            in.close();
+            fileIn.close();
+
+            /*for (int i = 0; i < 17; i++) {
                 for (int j = 0; j < 200 && currentFile.hasNextLine(); j++) {
                     System.out.println(all_movies[i][j]);
                 }
-            }
+            }*/
         }
         catch(FileNotFoundException e){
             System.out.println("File not found");
             System.exit(0);
+        }
+        catch(ClassNotFoundException e){
+            System.out.println("Class not found");
+        }
+        catch(IOException e) {
+            System.out.println("This file " + line + " has no data");
         }
 
         input.close();
