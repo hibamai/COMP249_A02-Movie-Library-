@@ -1020,43 +1020,182 @@ public class DriverA02 {
 
 
     public static void menuCreation(Movie[][] movie) {
+    int[] lengths = new int[17];
+    for(int i =0; i<lengths.length; i++){
+        for (int j = 0; j<movie[i].length; j++){
+            if (movie[i][j] != null){
+                lengths[i]++;
+            }
+        }
+    }
     int choice2 = 1;
-     
-        System.out.println("--------------------------------");
-        System.out.println("           Main menu           ");
-        System.out.println("--------------------------------");
-        System.out.println("s   Select a movie array to navigate");
-        System.out.println("n   Navigate musical movies (0 records)");
-        System.out.println("x   Exit");
-        break;
+
+        switch (choice2) {
+            case 1:
+            System.out.println("--------------------------------");
+            System.out.println("           Main menu           ");
+            System.out.println("--------------------------------");
+            System.out.println("s   Select a movie array to navigate");
+            System.out.println("n   Navigate musical movies (" + lengths[0] + "records)");
+            System.out.println("x   Exit");
+            break;
+            case 2:
+            System.out.println("--------------------------------");
+            System.out.println("           Main menu           ");
+            System.out.println("--------------------------------");
+            System.out.println("s   Select a movie array to navigate");
+            System.out.println("n   Navigate comedy movies (" + lengths[1] + " records)");
+            System.out.println("x   Exit");
+            break;
+            case 3:
+            System.out.println("--------------------------------");
+            System.out.println("           Main menu           ");
+            System.out.println("--------------------------------");
+            System.out.println("s   Select a movie array to navigate");
+            System.out.println("n   Navigate animation movies (" + lengths[2] + " records)");
+            System.out.println("x   Exit");
+            break;
+            case 4:
+            System.out.println("--------------------------------");
+            System.out.println("           Main menu           ");
+            System.out.println("--------------------------------");
+            System.out.println("s   Select a movie array to navigate");
+            System.out.println("n   Navigate adventure movies (" + lengths[3] + " records)");
+            System.out.println("x   Exit");
+            break;
+            case 5:
+            System.out.println("--------------------------------");
+            System.out.println("           Main menu           ");
+            System.out.println("--------------------------------");
+            System.out.println("s   Select a movie array to navigate");
+            System.out.println("n   Navigate drama movies (" + lengths[4] + " records)");
+            System.out.println("x   Exit");
+            break;
+            case 6:
+            System.out.println("--------------------------------");
+            System.out.println("           Main menu           ");
+            System.out.println("--------------------------------");
+            System.out.println("s   Select a movie array to navigate");
+            System.out.println("n   Navigate crime movies (" + lengths[5] + " records)");
+            System.out.println("x   Exit");
+            break;
+            case 7:
+            System.out.println("--------------------------------");
+            System.out.println("           Main menu           ");
+            System.out.println("--------------------------------");
+            System.out.println("s   Select a movie array to navigate");
+            System.out.println("n   Navigate biography movies (" + lengths[6] + " records)");
+            System.out.println("x   Exit");
+            break;
+            case 8:
+            System.out.println("--------------------------------");
+            System.out.println("           Main menu           ");
+            System.out.println("--------------------------------");
+            System.out.println("s   Select a movie array to navigate");
+            System.out.println("n   Navigate horror movies (" + lengths[7]+ " records)");
+            System.out.println("x   Exit");
+            break;
+            case 9:
+            System.out.println("--------------------------------");
+            System.out.println("           Main menu           ");
+            System.out.println("--------------------------------");
+            System.out.println("s   Select a movie array to navigate");
+            System.out.println("n   Navigate action movies (" + lengths[8] + " records)");
+            System.out.println("x   Exit");
+            break;
+            case 10:
+            System.out.println("--------------------------------");
+            System.out.println("           Main menu           ");
+            System.out.println("--------------------------------");
+            System.out.println("s   Select a movie array to navigate");
+            System.out.println("n   Navigate documentary movies (" + lengths[9]+ " records)");
+            System.out.println("x   Exit");
+            break;
+            case 11:
+            System.out.println("--------------------------------");
+            System.out.println("           Main menu           ");
+            System.out.println("--------------------------------");
+            System.out.println("s   Select a movie array to navigate");
+            System.out.println("n   Navigate fantasy movies (" + lengths[10] + " records)");
+            System.out.println("x   Exit");
+            break;
+            case 12:
+            System.out.println("--------------------------------");
+            System.out.println("           Main menu           ");
+            System.out.println("--------------------------------");
+            System.out.println("s   Select a movie array to navigate");
+            System.out.println("n   Navigate mystery movies (" + movie[11].length + " records)");
+            System.out.println("x   Exit");
+            break;
+            case 13:
+            System.out.println("--------------------------------");
+            System.out.println("           Main menu           ");
+            System.out.println("--------------------------------");
+            System.out.println("s   Select a movie array to navigate");
+            System.out.println("n   Navigate sci-fi movies (" + lengths[12]+ " records)");
+            System.out.println("x   Exit");
+            break;
+            case 14:
+            System.out.println("--------------------------------");
+            System.out.println("           Main menu           ");
+            System.out.println("--------------------------------");
+            System.out.println("s   Select a movie array to navigate");
+            System.out.println("n   Navigate family movies (" + lengths[13] + " records)");
+            System.out.println("x   Exit");
+            break;
+            case 15:
+            System.out.println("--------------------------------");
+            System.out.println("           Main menu           ");
+            System.out.println("--------------------------------");
+            System.out.println("s   Select a movie array to navigate");
+            System.out.println("n   Navigate western movies (" + lengths[14] + " records)");
+            System.out.println("x   Exit");
+            break;
+            case 16:
+            System.out.println("--------------------------------");
+            System.out.println("           Main menu           ");
+            System.out.println("--------------------------------");
+            System.out.println("s   Select a movie array to navigate");
+            System.out.println("n   Navigate romance movies (" + lengths[15] + " records)");
+            System.out.println("x   Exit");
+            break;
+            case 17:
+            System.out.println("--------------------------------");
+            System.out.println("           Main menu           ");
+            System.out.println("--------------------------------");
+            System.out.println("s   Select a movie array to navigate");
+            System.out.println("n   Navigate thriller movies (" + lengths[16] + " records)");
+            System.out.println("x   Exit");
+            break;
+        }
     
 
         
         Scanner input = new Scanner(System.in);
         String choice = input.next();
         
-        switch (choice) {
+        switch (choice) 
             case "s":
             System.out.println("----------------------------");
             System.out.println("       Genre Sub-Menu       ");
             System.out.println("----------------------------");
-            System.out.println("1. musical             ("+ movie[0].length+" movies)");
-            System.out.println("2. comedy              ("+ movie[1].length+" movies)");
-            System.out.println("3. animation           ("+ movie[2].length+" movies)");
-            System.out.println("4. adventure           ("+ movie[3].length+" movies)");
-            System.out.println("5. drama               ("+ movie[4].length+" movies)");
-            System.out.println("6. crime               ("+ movie[5].length+" movies)");
-            System.out.println("7. biography           ("+ movie[6].length+" movies)");
-            System.out.println("8. horror              ("+ movie[7].length+" movies)");
-            System.out.println("9. action              ("+ movie[8].length+" movies)");
-            System.out.println("10. documentary        ("+ movie[9].length+" movies)");
-            System.out.println("11. fantasy            ("+ movie[10].length+" movies)");
-            System.out.println("12. mystery            ("+ movie[11].length+" movies)");
-            System.out.println("13. sci-fi             ("+ movie[12].length+" movies)");
-            System.out.println("14. family             ("+ movie[13].length+" movies)");
-            System.out.println("15. western            ("+ movie[14].length+" movies)");
-            System.out.println("16. romance            ("+ movie[15].length+" movies)");
-            System.out.println("17. thriller           ("+ movie[16].length+" movies)");
+            System.out.println("1. musical             ("+ lengths[0]+" movies)");
+            System.out.println("2. comedy              ("+ lengths[1]+" movies)");
+            System.out.println("3. animation           ("+ lengths[2]+" movies)");
+            System.out.println("4. adventure           ("+ lengths[3]+" movies)");
+            System.out.println("5. drama               ("+ lengths[4]+" movies)");
+            System.out.println("6. crime               ("+ lengths[5]+" movies)");
+            System.out.println("7. biography           ("+ lengths[6]+" movies)");
+            System.out.println("8. horror              ("+ lengths[7]+" movies)");
+            System.out.println("9. action              ("+ lengths[8]+" movies)");
+            System.out.println("10. documentary        ("+ lengths[9]+" movies)");
+            System.out.println("11. fantasy            ("+ lengths[10]+" movies)");
+            System.out.println("12. mystery            ("+ lengths[11]+" movies)");
+            System.out.println("13. sci-fi             ("+ lengths[12]+" movies)");
+            System.out.println("14. family             ("+ lengths[13]+" movies)");
+            System.out.println("15. western            ("+ lengths[14]+" movies)");
+            System.out.println("16. romance            ("+ lengths[15]+" movies)");
+            System.out.println("17. thriller           ("+ lengths[16]+" movies)");
             System.out.println("18. Exit");
     
             System.out.println("----------------------------");
