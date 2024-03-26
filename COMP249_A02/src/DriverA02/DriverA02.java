@@ -1020,14 +1020,18 @@ public class DriverA02 {
 
 
     public static void menuCreation(Movie[][] movie) {
-    
+    int choice2 = 1;
+     
         System.out.println("--------------------------------");
         System.out.println("           Main menu           ");
         System.out.println("--------------------------------");
         System.out.println("s   Select a movie array to navigate");
         System.out.println("n   Navigate musical movies (0 records)");
         System.out.println("x   Exit");
+        break;
+    
 
+        
         Scanner input = new Scanner(System.in);
         String choice = input.next();
         
@@ -1057,8 +1061,17 @@ public class DriverA02 {
     
             System.out.println("----------------------------");
             System.out.print("Enter your choice: ");
+<<<<<<< HEAD
+            int choice2 = input.nextInt();
+
+            switch(choice2) {
+                  
+            }
+
+=======
 
             
+>>>>>>> 0b54c7ecba7fe5d563a22b6a93670faf5501ff09
             break;
             case "n":
                 System.out.println("The musical movies don't have any records");
