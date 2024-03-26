@@ -972,42 +972,36 @@ public class DriverA02 {
 
     
 
-    public static void do_part3(String file){
+    public static Movie[][] do_part3(String file){
         //Deserialization
+        
         Scanner input = null;
         Scanner currentFile = null;
         FileInputStream fileIn = null;
         ObjectInputStream in = null;
         String line = null;
-        
+        Movie[][] all_movies = new Movie[17][200]; //create a 2D array to store all the movies
+
         try {
             input = new Scanner(new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/"+file)); //read from manifest file 3
             line = input.nextLine(); //read the first line
-            currentFile = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/"+line));
-
-            Movie[][] all_movies = new Movie[17][200]; //create a 2D array to store all the movies
-            fileIn = new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/" + currentFile); //read from the file in the manifest file
-            System.out.println("HELLO");
+            fileIn = new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/"+line); //read from the file in the manifest file
             in = new ObjectInputStream(fileIn); //create an object input stream
-            while (input.hasNextLine() && in.available() > 0 ) {    
-                    Movie[] movieArr = (Movie[]) in.readObject(); //cast the object to a movie array
-                    for (int i = 0; i < all_movies.length; i++) {
+            for (int i = 0; i < all_movies.length; i++) {
+                if (input.hasNextLine()) {
+                    while (fileIn.available() > 0 && fileIn != null) {
+                        Movie[] movieArr = (Movie[]) in.readObject(); //cast the object to a movie array
                         all_movies[i] = movieArr; //store the movie array in the 2D array
                     }
-                    
-                if (input.hasNextLine() && !currentFile.hasNextLine()){
+                }
+                if (fileIn.available() == 0 && input.hasNextLine()) {
                     line = input.nextLine();
-                    currentFile = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/"+line));
+                    fileIn = new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/"+line); //read from the file in the manifest file
+                    in = new ObjectInputStream(fileIn); //create an object input stream
                 }
             }
             in.close();
             fileIn.close();
-
-            /*for (int i = 0; i < 17; i++) {
-                for (int j = 0; j < 200 && currentFile.hasNextLine(); j++) {
-                    System.out.println(all_movies[i][j]);
-                }
-            }*/
         }
         catch(FileNotFoundException e){
             System.out.println("File not found");
@@ -1017,13 +1011,18 @@ public class DriverA02 {
             System.out.println("Class not found");
         }
         catch(IOException e) {
-            System.out.println("This file " + line + " has no data");
+            System.out.println("This file has no data");
         }
 
         input.close();
-        currentFile.close();
+        return all_movies; 
 
     }
+
+
+
+
+
 
     public static void main(String[] args){
         createFirstFile();
