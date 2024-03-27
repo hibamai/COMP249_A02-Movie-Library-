@@ -825,23 +825,6 @@ public class DriverA02 {
             ObjectOutputStream outputRomance = new ObjectOutputStream(new FileOutputStream("romance.ser"));
             ObjectOutputStream outputThriller = new ObjectOutputStream(new FileOutputStream("thriller.ser"));
 
-            /*outputMusical = new PrintWriter(new FileOutputStream("musical.ser"));
-            outputComedy = new PrintWriter(new FileOutputStream("comedy.ser"));
-            outputAnimation = new PrintWriter(new FileOutputStream("animation.ser"));
-            outputAdventure = new PrintWriter(new FileOutputStream("adventure.ser"));
-            outputDrama = new PrintWriter(new FileOutputStream("drama.ser"));
-            outputCrime = new PrintWriter(new FileOutputStream("crime.ser"));
-            outputBiography = new PrintWriter(new FileOutputStream("biography.ser"));
-            outputHorror = new PrintWriter(new FileOutputStream("horror.ser"));
-            outputAction = new PrintWriter(new FileOutputStream("action.ser"));
-            outputDocumentary = new PrintWriter(new FileOutputStream("documentary.ser"));
-            outputFantasy = new PrintWriter(new FileOutputStream("fantasy.ser"));
-            outputMystery = new PrintWriter(new FileOutputStream("mystery.ser"));
-            outputSciFi = new PrintWriter(new FileOutputStream("sci-fi.ser"));
-            outputFamily = new PrintWriter(new FileOutputStream("family.ser"));
-            outputWestern = new PrintWriter(new FileOutputStream("western.ser"));
-            outputRomance = new PrintWriter(new FileOutputStream("romance.ser"));
-            outputThriller = new PrintWriter(new FileOutputStream("thriller.ser"));*/
 
             part3 = new PrintWriter (new FileOutputStream("part3_manifest.txt"));
             part3.println("musical.ser");
@@ -1020,7 +1003,19 @@ public class DriverA02 {
 
 
     public static void menuCreation(Movie[][] movie) {
-    int[] lengths = new int[17];
+    boolean exit = false;
+    boolean invalidChoice = false;
+    int index = 0;
+    int currentIndex = 0;
+    String choice; //choice of main menu
+    int choice2 = 1; //choice of genre
+    int choice3; //choice of index of movies
+    int[] lengths = new int[17]; //to determined the true length of movie array of each genre
+    String[] genreArr = {"musical", "comedy", "animation", "adventure", "drama", "crime", "biography", "horror", "action", "documentary", "fantasy", "mystery", "sci-fi", "family", "western", "romance", "thriller"};
+    int[] indexArr = new int[17]; //to keep track of the current index of each genre
+    int count = 0;
+
+    Scanner input = new Scanner(System.in);
     for(int i =0; i<lengths.length; i++){
         for (int j = 0; j<movie[i].length; j++){
             if (movie[i][j] != null){
@@ -1028,153 +1023,19 @@ public class DriverA02 {
             }
         }
     }
-    int choice2 = 1;
 
-        switch (choice2) {
-            case 1:
-            System.out.println("--------------------------------");
-            System.out.println("           Main menu           ");
-            System.out.println("--------------------------------");
-            System.out.println("s   Select a movie array to navigate");
-            System.out.println("n   Navigate musical movies (" + lengths[0] + "records)");
-            System.out.println("x   Exit");
-            break;
-            case 2:
-            System.out.println("--------------------------------");
-            System.out.println("           Main menu           ");
-            System.out.println("--------------------------------");
-            System.out.println("s   Select a movie array to navigate");
-            System.out.println("n   Navigate comedy movies (" + lengths[1] + " records)");
-            System.out.println("x   Exit");
-            break;
-            case 3:
-            System.out.println("--------------------------------");
-            System.out.println("           Main menu           ");
-            System.out.println("--------------------------------");
-            System.out.println("s   Select a movie array to navigate");
-            System.out.println("n   Navigate animation movies (" + lengths[2] + " records)");
-            System.out.println("x   Exit");
-            break;
-            case 4:
-            System.out.println("--------------------------------");
-            System.out.println("           Main menu           ");
-            System.out.println("--------------------------------");
-            System.out.println("s   Select a movie array to navigate");
-            System.out.println("n   Navigate adventure movies (" + lengths[3] + " records)");
-            System.out.println("x   Exit");
-            break;
-            case 5:
-            System.out.println("--------------------------------");
-            System.out.println("           Main menu           ");
-            System.out.println("--------------------------------");
-            System.out.println("s   Select a movie array to navigate");
-            System.out.println("n   Navigate drama movies (" + lengths[4] + " records)");
-            System.out.println("x   Exit");
-            break;
-            case 6:
-            System.out.println("--------------------------------");
-            System.out.println("           Main menu           ");
-            System.out.println("--------------------------------");
-            System.out.println("s   Select a movie array to navigate");
-            System.out.println("n   Navigate crime movies (" + lengths[5] + " records)");
-            System.out.println("x   Exit");
-            break;
-            case 7:
-            System.out.println("--------------------------------");
-            System.out.println("           Main menu           ");
-            System.out.println("--------------------------------");
-            System.out.println("s   Select a movie array to navigate");
-            System.out.println("n   Navigate biography movies (" + lengths[6] + " records)");
-            System.out.println("x   Exit");
-            break;
-            case 8:
-            System.out.println("--------------------------------");
-            System.out.println("           Main menu           ");
-            System.out.println("--------------------------------");
-            System.out.println("s   Select a movie array to navigate");
-            System.out.println("n   Navigate horror movies (" + lengths[7]+ " records)");
-            System.out.println("x   Exit");
-            break;
-            case 9:
-            System.out.println("--------------------------------");
-            System.out.println("           Main menu           ");
-            System.out.println("--------------------------------");
-            System.out.println("s   Select a movie array to navigate");
-            System.out.println("n   Navigate action movies (" + lengths[8] + " records)");
-            System.out.println("x   Exit");
-            break;
-            case 10:
-            System.out.println("--------------------------------");
-            System.out.println("           Main menu           ");
-            System.out.println("--------------------------------");
-            System.out.println("s   Select a movie array to navigate");
-            System.out.println("n   Navigate documentary movies (" + lengths[9]+ " records)");
-            System.out.println("x   Exit");
-            break;
-            case 11:
-            System.out.println("--------------------------------");
-            System.out.println("           Main menu           ");
-            System.out.println("--------------------------------");
-            System.out.println("s   Select a movie array to navigate");
-            System.out.println("n   Navigate fantasy movies (" + lengths[10] + " records)");
-            System.out.println("x   Exit");
-            break;
-            case 12:
-            System.out.println("--------------------------------");
-            System.out.println("           Main menu           ");
-            System.out.println("--------------------------------");
-            System.out.println("s   Select a movie array to navigate");
-            System.out.println("n   Navigate mystery movies (" + movie[11].length + " records)");
-            System.out.println("x   Exit");
-            break;
-            case 13:
-            System.out.println("--------------------------------");
-            System.out.println("           Main menu           ");
-            System.out.println("--------------------------------");
-            System.out.println("s   Select a movie array to navigate");
-            System.out.println("n   Navigate sci-fi movies (" + lengths[12]+ " records)");
-            System.out.println("x   Exit");
-            break;
-            case 14:
-            System.out.println("--------------------------------");
-            System.out.println("           Main menu           ");
-            System.out.println("--------------------------------");
-            System.out.println("s   Select a movie array to navigate");
-            System.out.println("n   Navigate family movies (" + lengths[13] + " records)");
-            System.out.println("x   Exit");
-            break;
-            case 15:
-            System.out.println("--------------------------------");
-            System.out.println("           Main menu           ");
-            System.out.println("--------------------------------");
-            System.out.println("s   Select a movie array to navigate");
-            System.out.println("n   Navigate western movies (" + lengths[14] + " records)");
-            System.out.println("x   Exit");
-            break;
-            case 16:
-            System.out.println("--------------------------------");
-            System.out.println("           Main menu           ");
-            System.out.println("--------------------------------");
-            System.out.println("s   Select a movie array to navigate");
-            System.out.println("n   Navigate romance movies (" + lengths[15] + " records)");
-            System.out.println("x   Exit");
-            break;
-            case 17:
-            System.out.println("--------------------------------");
-            System.out.println("           Main menu           ");
-            System.out.println("--------------------------------");
-            System.out.println("s   Select a movie array to navigate");
-            System.out.println("n   Navigate thriller movies (" + lengths[16] + " records)");
-            System.out.println("x   Exit");
-            break;
-        }
-    
-
+    while (!exit ) {
+        invalidChoice = false;
+        System.out.println("--------------------------------");
+        System.out.println("           Main menu           ");
+        System.out.println("--------------------------------");
+        System.out.println("s   Select a movie array to navigate");
+        System.out.println("n   Navigate " + genreArr[choice2 - 1] + " movies (" + lengths[choice2 - 1] + " records)");
+        System.out.println("x   Exit");
         
-        Scanner input = new Scanner(System.in);
-        String choice = input.next();
+        choice = input.next();
         
-        switch (choice) 
+        switch (choice) {
             case "s":
             System.out.println("----------------------------");
             System.out.println("       Genre Sub-Menu       ");
@@ -1198,27 +1059,91 @@ public class DriverA02 {
             System.out.println("17. thriller           ("+ lengths[16]+" movies)");
             System.out.println("18. Exit");
     
+
             System.out.println("----------------------------");
             System.out.print("Enter your choice: ");
-<<<<<<< HEAD
-            int choice2 = input.nextInt();
-
-            switch(choice2) {
-                  
-            }
-
-=======
-
-            
->>>>>>> 0b54c7ecba7fe5d563a22b6a93670faf5501ff09
+            choice2 = input.nextInt();  
             break;
+
             case "n":
-                System.out.println("The musical movies don't have any records");
+                if (lengths[choice2-1] == 0) {
+                    System.out.println("No movies found in this genre");
+                }
+                else { 
+                    count++;
+                    while (!invalidChoice) {
+                        System.out.println("Navigating " + genreArr[choice2-1] + " movies " + "(" + (lengths[choice2-1])+ ")");
+                        System.out.print("Enter your choice: ");
+                        choice3 = input.nextInt();
+                        if (choice3 == 0) {
+                            System.out.println("Invalid input. Please try again");
+                            invalidChoice = true;
+                        }
+                        else if (choice3 > 0 && choice3 <= lengths[choice2-1] || choice3 < 0 && count != 1) // to avoid null pointer exception
+                        {   
+                            if (count == 1) {
+                                currentIndex = choice3 - 1;
+                            }
+                            else {
+                                currentIndex = indexArr[choice2-1];
+                            }
+                            if (choice3 < 0) {
+                                if (currentIndex - (-choice3 - 1) < 0) {
+                                    System.out.println("BOF has been reached");
+                                    for (int k = 0; k <= currentIndex; k++) {
+                                        System.out.println(movie[choice2-1][k].toString());
+                                    }
+                                    currentIndex = 0;
+                                }
+                                    
+                                else { 
+                                    for (int k = 0; k <= ((-choice3 - 1)); k++) {
+                                        System.out.println(movie[choice2-1][currentIndex-(-choice3 - 1 - k)].toString());
+                                    }
+                                    currentIndex = currentIndex - (-choice3 - 1);
+                                }
+                            }
+
+                            else if (choice3 > 0) {                                    
+                                if (currentIndex + (choice3 - 1) >= lengths[choice2-1]) {
+                                    System.out.println("EOF has been reached");
+                                    for (int k = currentIndex; k < lengths[choice2-1]; k++) {
+                                        System.out.println(movie[choice2-1][k].toString());
+                                    }
+                                    currentIndex = lengths[choice2-1] - 1;
+                                }
+                                else {
+                                    for (int k = 0; k <= (choice3 -1); k++) {
+                                        System.out.println(movie[choice2-1][currentIndex + k].toString());
+                                    }
+                                    currentIndex = currentIndex + (choice3 - 1);
+                                }
+                            }
+                                
+                            else {
+                                invalidChoice = true;  
+                            }
+                            
+                        }
+                        else {
+                            System.out.println("Invalid input. Please try again.");
+                            invalidChoice = true;
+                        }
+                    }
+                    indexArr[choice2-1] = currentIndex;
+                }
             break;
             case "x":
+            exit = true;
+            System.out.println("Thank you for using the program");
+            break;
+            default:
+            System.out.println("Invalid input. Please try again.");
             break;
         }
     }
+}   
+
 
 
 
@@ -1233,7 +1158,7 @@ public class DriverA02 {
         String part3_manifest = do_part2(part2_manifest);
         
         do_part3(part3_manifest);
-        menuCreation();
+        menuCreation( do_part3(part3_manifest));
     }
 
 }
