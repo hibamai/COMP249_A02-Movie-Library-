@@ -1,3 +1,8 @@
+/**
+ * @author Lan Thi Duong () & Hiba Maifi (40289223)
+ * @name COMP-249 - Assignment #2
+ * @date Due Date: 27 March, 2024
+ */
 package DriverA02;
 import java.util.Scanner;
 import java.io.PrintWriter;
@@ -10,7 +15,7 @@ import java.io.ObjectOutputStream;
 
 
 public class DriverA02 {
-    //creating the file part1_manifest
+    /**Creating the file "part1_manifest"*/
     public static void createFirstFile(){
         PrintWriter firstFile=null;
         try{
@@ -32,7 +37,7 @@ public class DriverA02 {
      
     }
 
-    //method to check if there are quotes in the line
+    /**Method to check if there are quotes in the line*/
     public static boolean presenceOfQuote(String line) {
         for (int i = 0; i < line.length(); i++) {
             if (line.charAt(i) == '"') {
@@ -42,7 +47,7 @@ public class DriverA02 {
         return false;
     }
 
-    //method to check if there are missing quotes
+    /**Method to check if there are missing quotes*/
     public static boolean missingQuote(String line) {
         int count = 0;
         for (int i = 0; i < line.length(); i++) {
@@ -58,7 +63,7 @@ public class DriverA02 {
         }
     }
 
-    //method to check where the double quotes are
+    /**Method to check where the double quotes are*/
     public static int indexOfQuote(String line, String[] array) {
         int index = -1;
         if (presenceOfQuote(line) == true && !missingQuote(line)) {
@@ -78,7 +83,7 @@ public class DriverA02 {
         }
     }
 
-    //method to check if there's a coma in a substring of the title with double quotes
+    /**Method to check if there's a coma in a substring of the title with double quotes*/
     public static boolean presenceOfComa(String line) {
         int count = 0;
         int indexStart = 0;
@@ -109,7 +114,7 @@ public class DriverA02 {
         }
     }
 
-    //method to check if the year field is an integer 
+    /**Method to check if the year field is an integer*/
     public static boolean validYear(String[] array) {
         try {
             int year = Integer.parseInt(array[0]);
@@ -120,7 +125,7 @@ public class DriverA02 {
         }
     }
 
-    //method to get the year after successfully checking if it's an integer
+    /**Method to get the year after successfully checking if it's an integer*/
     public static int getYear(String[] array) {
         if (validYear(array) == true) {
             return Integer.parseInt(array[0]);
@@ -130,7 +135,7 @@ public class DriverA02 {
         }
     }
 
-    //method to check if the duration field is an integer
+    /**Method to check if the duration field is an integer*/
     public static boolean validDuration(String[] array, String line) {
         if ((presenceOfComa(line) == true) && !array[3].equals("")) {
             try {
@@ -152,7 +157,7 @@ public class DriverA02 {
         }
     }
 
-    //method to get the duration after successfully checking if it's an integer
+    /**Method to get the duration after successfully checking if it's an integer*/
     public static int getDuration(String[] array, String line) {
         if (validDuration(array, line) == true && presenceOfComa(line) == true){
             return Integer.parseInt(array[3]);
@@ -165,7 +170,7 @@ public class DriverA02 {
         }
     }
 
-    //method to check if the score field is a double
+    /**Method to check if the score field is a double*/
     public static boolean validScore(String[] array, String line) {
         if ((presenceOfComa(line) == true) && !array[6].equals("")) {
             try {
@@ -198,7 +203,7 @@ public class DriverA02 {
         }
     }
 
-    //method to get the score after successfully checking if it's a double
+    /**Method to get the score after successfully checking if it's a double*/
     public static double getScore(String[] array, String line) {
         if (validScore(array, line) == true && presenceOfComa(line) == true){
             return Double.parseDouble(array[6]);
@@ -214,7 +219,9 @@ public class DriverA02 {
             return 0;
         }
     }
-
+    /**Method do_part1 to check for possible mistakes in movie records and place them in either the bad_movie_records file if 
+     * they contain mistakes or in their respective file depending on their genre.
+     */
     public static String do_part1(String file) {
         Scanner input = null;
         Scanner selectFile = null;
@@ -293,7 +300,7 @@ public class DriverA02 {
                 boolean missingScore = false;
                 
 
-                //missing quotes
+                /**Missing quotes*/
                 if (missingQuote(line) == true) {
                     try {
                         throw new MissingQuotesException("Missing quotes");
@@ -305,7 +312,7 @@ public class DriverA02 {
                     }
                 }
 
-                //missing fields
+                /**Missing fields*/
                 if (parts.length < 10) {
                     try {
                         throw new MissingFieldsException("Missing fields");
@@ -329,7 +336,7 @@ public class DriverA02 {
                     }
                 }
 
-                //excess fields
+                /**Excess fields*/
                 if (parts.length > 10 && !presenceOfComa(line)) {                      
                         try {
                             throw new ExcessFieldsException("Excess fields");
@@ -342,7 +349,7 @@ public class DriverA02 {
                         }    
                 }   
 
-                //missing year
+                /**Missing year*/
                 if (parts[0].equals("")) {
                     try {
                         throw new BadYearException("Missing year");
@@ -354,7 +361,7 @@ public class DriverA02 {
                     }
                 }
 
-                //invalid year
+                /**Invalid year*/
                 if ((!validYear(parts) || (validYear(parts) && (getYear(parts) < 1990 || getYear(parts) > 1999)) && (line.charAt(0) != ','))){
                     System.out.println(x);
                     try { 
@@ -366,7 +373,7 @@ public class DriverA02 {
                         badMovie.println("Error invalid year (semantic error): \n" + line + "\nFound in Movie199"+fileDone+".csv, line " + (x+1));
                     }
                 }
-                //missing duration
+                /**Missing duration*/
                 if (parts.length > 10 && presenceOfComa(line)) {
                     if (parts[3].equals("")) {
                         try {
@@ -394,7 +401,7 @@ public class DriverA02 {
                     }
                 }
                 
-                //invalid duration
+                /**Invalid duration*/
                 if ((!missingDuration) && (!validDuration(parts, line) || validDuration(parts, line) && ((getDuration(parts,line) > 300 || getDuration(parts,line) < 30)))){
                     try {
                         throw new BadDurationException("Invalid duration");
@@ -406,7 +413,7 @@ public class DriverA02 {
                     }
                 }
 
-                //missing genres
+                /**Missing genres*/
                 if (parts.length > 10 && presenceOfComa(line)) {
                     if (parts[4].equals("")) {
                         try {
@@ -434,7 +441,7 @@ public class DriverA02 {
                     }
                 }
 
-                //invalid genres
+                /**Invalid genres*/
                 if(!missingGenres){
                     if (parts.length > 10 && presenceOfComa(line)) {
                         if (!(parts[4].equals("Action")||parts[4].equals("Adventure")||parts[4].equals("Animation")||parts[4].equals("Biography")||parts[4].equals("Comedy")||parts[4].equals("Crime")||parts[4].equals("Documentary")||parts[4].equals("Drama")||parts[4].equals("Family")||parts[4].equals("Fantasy")||parts[4].equals("Horror")||parts[4].equals("Musical")||parts[4].equals("Mystery")||parts[4].equals("Romance")||parts[4].equals("Sci-fi")||parts[4].equals("Thriller")||parts[4].equals("Western"))) {
@@ -476,7 +483,7 @@ public class DriverA02 {
                 }
                 
 
-                //missing rating
+                /**Missing rating*/
                 if (parts.length > 10 && presenceOfComa(line)){
                     if(parts[5].equals("")){
                         try{
@@ -504,7 +511,7 @@ public class DriverA02 {
                     }
                 }
 
-                //invalid rating
+                /**Invalid rating*/
                 if (!missingRating) {
                     if (parts.length > 10 && presenceOfComa(line)){
                         if(!(parts[5].equals("PG")||parts[5].equals("Unrated")||parts[5].equals("G")||parts[5].equals("R")||parts[5].equals("PG-13")||parts[5].equals("NC-17"))){
@@ -545,7 +552,7 @@ public class DriverA02 {
                     }
                 }
 
-                //missing score
+                /**Missing score*/
                 if (parts.length > 10 && presenceOfComa(line)){
                     if(parts[6].equals("")){
                         try{
@@ -573,7 +580,7 @@ public class DriverA02 {
                     }
                 }
 
-                //invalid score
+                /**Invalid score*/
                 if ((!missingScore && !validScore(parts, line)) || (validScore(parts, line) && ((getScore(parts, line) < 0 || getScore(parts, line) > 10)))){
                     try{
                         throw new BadScoreException("Invalid score");
@@ -585,7 +592,7 @@ public class DriverA02 {
                     }
                 }
 
-                //missing names
+                /**Missing names*/
                 if (parts.length > 10 && presenceOfComa(line)){
                     if(parts[7].equals("")||parts[8].equals("")||parts[9].equals("")||parts[10].equals("")){
                         try{
@@ -610,7 +617,7 @@ public class DriverA02 {
                         }
                     }
                 }
-                //missing title
+                /**Missing title*/
                 if (parts[1].equals("")){
                     try{
                         throw new BadTitleException("Missing Title");
@@ -622,7 +629,7 @@ public class DriverA02 {
                     }
                 }
 
-                //if no error is found, the line will be written to the corresponding file
+                /**If no error is found, the line will be written to the corresponding file*/
                 if (!errorFound) {
                     if (parts.length > 10) { //won't be considered as excess field if there's a comma in the title, if it's not the case, the error would have been caught in the previous if statement
                         genres = parts[4];
@@ -702,7 +709,7 @@ public class DriverA02 {
                 }   
             }  
         
-        // switching files
+        /**Switching files*/
         if (!input.hasNextLine() && fileDone==0){ //switching to file 1991
             input = new Scanner (new FileInputStream("/Users/thilanthiduong/Documents/GitHub/COMP249_A02/COMP249_A02/src/DriverA02/"+selectFile.nextLine()));
             fileDone ++;
@@ -768,29 +775,12 @@ public class DriverA02 {
         input.close();
         return "part2_manifest.txt";
     }
+    /**Method do_part2 to create Movie arrays from the valid movie records and serialize these arrays. The arrays are made based
+     * on the genre of the movies
+     */
     public static String do_part2(String file){
         Scanner input = null;
         Scanner currentFile = null;
-
-        
-
-        /*PrintWriter outputMusical =null;
-        PrintWriter outputComedy = null;
-        PrintWriter outputAnimation =null;
-        PrintWriter outputAdventure = null;
-        PrintWriter outputDrama=null;
-        PrintWriter outputCrime = null;
-        PrintWriter outputBiography =null;
-        PrintWriter outputHorror = null;
-        PrintWriter outputAction =null;
-        PrintWriter outputDocumentary = null;
-        PrintWriter outputFantasy =null;
-        PrintWriter outputMystery = null;
-        PrintWriter outputSciFi =null;
-        PrintWriter outputFamily = null;
-        PrintWriter outputWestern =null;
-        PrintWriter outputRomance = null;
-        PrintWriter outputThriller =null;*/
         PrintWriter part3 = null;
 
         Movie[] trialArr  = new Movie[1];
@@ -873,7 +863,7 @@ public class DriverA02 {
                             currentMovieArr[j] = currentMovie;
                         }
 
-                        //placing the array created in its respective file
+                        /*Placing the array created in its respective file*/
                         switch(fileDone){
                             case 0: outputMusical.writeObject(currentMovieArr);
                             outputMusical.close();
@@ -954,7 +944,7 @@ public class DriverA02 {
     }
 
     
-
+    /**Method do_part3 to deserialize the arrays and make the user able to navigate through the movie records based on their genre */
     public static Movie[][] do_part3(String file){
         //Deserialization
         
@@ -1146,7 +1136,7 @@ public class DriverA02 {
 
 
 
-
+    /**Main method to test the program */
     public static void main(String[] args){
         createFirstFile();
 

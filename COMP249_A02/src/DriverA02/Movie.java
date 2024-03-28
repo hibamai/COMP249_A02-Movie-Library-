@@ -1,6 +1,10 @@
+
 package DriverA02;
 import java.io.Serializable;
-
+/**
+ * @author Lan Thi Duong (40276821), Hiba Maifi (40289223)
+ * 
+ */
 public class Movie implements Serializable {
     private int year;
     private String title;
@@ -13,7 +17,7 @@ public class Movie implements Serializable {
     private String actor2;
     private String actor3; 
 
-    //Constructors 
+    /**Constructors */
     public Movie (int year, String title, int duration, String genre, String rating, double score, String director, String actor1, String actor2, String actor3){
         this.year = year;
         this.title = title;
