@@ -1,8 +1,4 @@
-/**
- * @author Lan Thi Duong () & Hiba Maifi (40289223)
- * @name COMP-249 - Assignment #2
- * @date Due Date: 27 March, 2024
- */
+
 package DriverA02;
 import java.util.Scanner;
 import java.io.PrintWriter;
@@ -13,7 +9,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-
+/**
+ * @author Lan Thi Duong () & Hiba Maifi (40289223)
+ * <br> COMP-249 - Assignment #2
+ * <br> Due Date: 27 March, 2024
+ */
 public class DriverA02 {
     /**Creating the file "part1_manifest"*/
     public static void createFirstFile(){
